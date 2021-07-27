@@ -4,6 +4,7 @@ public class Solution {
         int[] res = new int[n];
         // find the largest one to avoid the find smallest one
         // since the smalleest could be in the middle.
+        // the largest one must be one of ends.
         while (k >= 0) {
             if (Math.Abs(nums[e]) >= Math.Abs(nums[s])) {
                 res[k--] = (int) Math.Pow(nums[e--], 2);
