@@ -7,7 +7,7 @@ public class Solution {
                 st.Push(res);
                 res = 0;
             }
-            else res = st.Pop() + Math.Max(1, res * 2);
+            else res = st.Pop() + Math.Max(1, res * 2); // '()' => 1
         }
         // O(n)
         return res;
@@ -30,10 +30,11 @@ public class Solution {
         int cnt = 0;
         for (int i = 0; i < s.Length - 1; i++) {
             cnt += (s[i] == '(') ? 1 : -1;
-            if (cnt == 0) 
+            if (cnt == 0) // balance case (A)(B) 
                 return ScoreOfParentheses(s.Substring(0, i - 0 + 1)) + ScoreOfParentheses(s.Substring(i+1));
         }
         // O(n^2)
+        // (A) case => A*2
         return 2 * ScoreOfParentheses(s.Substring(1, s.Length - 1));
     }
     
