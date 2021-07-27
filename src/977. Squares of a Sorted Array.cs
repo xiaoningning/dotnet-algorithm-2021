@@ -22,17 +22,13 @@ public class Solution {
         foreach (int x in nums) if (x < 0) j++;
         int i = j - 1;
         while (i >= 0 && j < n) {
-            if (Math.Abs(nums[i]) == Math.Abs(nums[j])) {
+            if (Math.Abs(nums[i]) >= Math.Abs(nums[j])) {
                 res[k++] = nums[j] * nums[j];
                 j++;
-            }
-            else if (Math.Abs(nums[i]) < Math.Abs(nums[j])) {
-                res[k++] = nums[i] * nums[i];
-                i--;
             }
             else {
-                res[k++] = nums[j] * nums[j];
-                j++;
+                res[k++] = nums[i] * nums[i];
+                i--;
             }
         }
         while (j < n) {
