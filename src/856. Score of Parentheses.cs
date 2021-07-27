@@ -1,5 +1,19 @@
 public class Solution {
     public int ScoreOfParentheses(string s) {
+        int res = 0;
+        var st = new Stack<int>();
+        foreach (var c in s) {
+            if (c == '(') {
+                st.Push(res);
+                res = 0;
+            }
+            else res = st.Pop() + Math.Max(1, res * 2);
+        }
+        // O(n)
+        return res;
+    }
+    
+    public int ScoreOfParentheses3(string s) {
         int res = 0, cnt = 0;
         for (int i = 0; i < s.Length; i++) {
             cnt += s[i] == '(' ? 1 : -1;
