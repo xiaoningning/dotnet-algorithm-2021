@@ -1,5 +1,22 @@
 public class Solution {
+    // Moore voting 
+    // if # > n / 2, only one result
+    // if # > n / 3, only two results
     public int MajorityElement(int[] nums) {
+        int n = nums.Length, cnt = 0, ans = nums[0];
+        foreach (int x in nums) {
+            if (x == ans) cnt++;
+            else if (--cnt == 0) {
+                ans = x; cnt = 1;
+            }
+        }
+        // Majority cnt >= 1
+        // T: O(n), S: O(1)
+        return ans;
+    }
+    
+    // bit cnt
+    public int MajorityElement1(int[] nums) {
         int n = nums.Length, ans = 0;
         for (int i = 0; i < 32; i++) {
             int cnt = 0;
@@ -18,9 +35,10 @@ public class Solution {
         // T: O(n), S: O(1)
         return ans;
     }
+    
     // Divide and conquer 
     // TLE
-    public int MajorityElement1(int[] nums) {
+    public int MajorityElement2(int[] nums) {
         // T: O(nlogn) S: O(logn)
         return GetMajority(nums, 0, nums.Length - 1);
     }
