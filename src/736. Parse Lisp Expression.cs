@@ -3,7 +3,7 @@ public class Solution {
         var d = new Stack<Dictionary<string, int>>();
         return Parse(expression, d);
     }
-    // each layer needs a dictionary
+    // each level needs a dictionary
     int Parse(string s, Stack<Dictionary<string, int>> d) {
         // only number case
         if (s[0] == '-' || (s[0] >= '0' && s[0] <= '9')) return Int32.Parse(s);
@@ -16,6 +16,7 @@ public class Solution {
             int cur = 0;
             var cmd = GetToken(s, ref cur);
             if (cmd == "let") {
+                // copy previous level dict
                 var map = d.Any() ? new Dictionary<string, int>(d.Peek()) : new Dictionary<string, int>();
                 d.Push(map);
                 while (true) {
@@ -23,11 +24,12 @@ public class Solution {
                     if (cur > s.Length) {
                         var val = Parse(token, d);
                         // Console.WriteLine("p: " + token + " v: " + val);
-                        // reach the end, remove one level dict.
+                        // reach the end, remove the current level dict.
                         d.Pop(); 
                         return val;
                     } 
                     var v = Parse(GetToken(s, ref cur), d);
+                    // if var is duplicated in each level, update only the current level
                     d.Peek()[token] = v;
                 }
             }
