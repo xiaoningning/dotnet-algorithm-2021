@@ -34,7 +34,7 @@ public class Solution {
             tail = ans;
             while (ptr != null) {
                 l = ptr;
-                r = SplitList(ptr, n);
+                r = SplitList(l, n);
                 ptr = SplitList(r, n);
                 var res = MergeTwo(l, r);
                 tail.next = res.Item1;
