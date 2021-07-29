@@ -6,7 +6,7 @@
  * e  1  30 ->40->50 ->60->70 ->90->nil
  * l
  * skipList: each level is sorted. 
- * one ptr to next level of its own
+ * one ptr to the next level of its own
  * ont ptr to the same level of next node
  * T: O(logn) -> worst O(n)
  * S: O(n)
@@ -32,7 +32,7 @@ public class Skiplist {
             while (ptr.next != null && ptr.next.val < num) ptr = ptr.next;
             prevNodes.Push(ptr);
         }
-        
+        // insert at the lower level first
         Node downPtr = null;
         while (prevNodes.Any()) {
             var cur = prevNodes.Pop();
