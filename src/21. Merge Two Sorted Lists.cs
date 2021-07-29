@@ -11,6 +11,14 @@
  */
 public class Solution {
     public ListNode MergeTwoLists(ListNode l1, ListNode l2) {
+        if (l1 == null || (l2 != null && l2.val < l1.val)) {
+            var t = l1; l1 = l2; l2 = t;
+        }
+        if (l1 != null) l1.next = MergeTwoLists(l1.next, l2);
+        return l1;
+    }
+    
+    public ListNode MergeTwoListt2(ListNode l1, ListNode l2) {
         var ans = new ListNode();
         var ptr = ans;
         while (l1 != null && l2 != null) {
