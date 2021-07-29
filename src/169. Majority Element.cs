@@ -53,8 +53,9 @@ public class Solution {
     // TLE
     int GetCnt(int[] nums, int x) {
         // return Array.FindAll(nums, n => n == x).Length;
+        // return nums.ToList().Count(n => n == x);
         int cnt = 0;
         foreach (var n in nums) if (n == x) cnt++;
-        return nums.ToList().Count(n => n == x);
+        return cnt;
     }
 }
