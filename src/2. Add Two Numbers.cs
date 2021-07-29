@@ -12,7 +12,8 @@
 public class Solution {
     public ListNode AddTwoNumbers(ListNode l1, ListNode l2) {
         ListNode head = new ListNode();
-        ListNode ans = head;
+        // create a new obj as pointer in c#
+        ListNode ptr = head;
         int carry = 0;
         // if carry > 0, extra node for the carry
         while (l1 != null || l2 != null || carry != 0) {
@@ -24,6 +25,6 @@ public class Solution {
             if (l1 != null) l1 = l1.next;
             if (l2 != null) l2 = l2.next;
         }
-        return ans.next;
+        return ptr.next;
     }
 }
