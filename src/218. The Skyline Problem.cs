@@ -7,7 +7,7 @@ public class Solution {
         }
         bhLst.Sort((x, y) => {
             // case: two buildings side to side on the same x
-            // if end-xi.== start-xj, xj should be ahead of xi
+            // if end-xi == start-xj, xj should be ahead of xi
             if (x.Item1 == y.Item1) return y.Item2 - x.Item2;
             else return x.Item1 - y.Item1;
             });
