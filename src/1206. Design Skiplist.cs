@@ -42,8 +42,8 @@ public class Skiplist {
         // new node is the first one of level
         // create new level
         var newLevelPtr = headPtr.next;
-        if (num == newLevelPtr.val && newLevelPtr.next != null) {
-            while (newLevelPtr.next.down != null) {
+        if (num == newLevelPtr.val) {
+            while (newLevelPtr.next != null && newLevelPtr.next.down != null) {
                 newLevelPtr.down = new Node(num, newLevelPtr.next.down, null);
                 newLevelPtr = newLevelPtr.down;
             }
