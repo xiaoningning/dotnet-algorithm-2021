@@ -25,7 +25,7 @@ public class Solution {
         return InOrder(root.right);
     }
     public bool IsValidBST1(TreeNode root) {
-        // -231 <= Node.val <= 231 - 1
+        // -2^31 <= Node.val <= 2^31 - 1
         return IsValidBST(root, Int64.MinValue, Int64.MaxValue);
     }
     bool IsValidBST(TreeNode root, long mn, long mx) {
