@@ -30,7 +30,6 @@ public class Solution {
     }
     bool IsValidBST(TreeNode root, long mn, long mx) {
         if (root == null) return true;
-        Console.WriteLine(root.val);
         if (root.val <= mn || root.val >= mx) return false;
         else return IsValidBST(root.left, mn, root.val)
                     && IsValidBST(root.right, root.val, mx);
