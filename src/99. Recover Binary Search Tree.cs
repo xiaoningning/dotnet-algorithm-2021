@@ -12,6 +12,7 @@
  * }
  */
 public class Solution {
+    // only two mistake nodes 
     TreeNode prev, x, y;
     public void RecoverTree(TreeNode root) {
         InOrder(root);
