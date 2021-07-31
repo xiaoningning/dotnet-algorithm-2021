@@ -12,6 +12,7 @@
  * }
  */
 public class Solution {
+    // min difference = min(node - node.left) since BST
     int ans = Int32.MaxValue;
     TreeNode prev = null;
     public int GetMinimumDifference(TreeNode root) {
