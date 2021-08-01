@@ -14,7 +14,9 @@
 public class Solution {
     // prev record => extra S: O(1)
     TreeNode prev;
-    int mx = 0, cnt = 1;
+    int mx = 0;
+    // cnt 1 as no duplicated node in none empty tree
+    int cnt = 1;
     List<int> ans = new List<int>();
     public int[] FindMode1(TreeNode root) {
         InOrder(root);
