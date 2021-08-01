@@ -12,6 +12,7 @@
  * }
  */
 public class Solution {
+    // prev record => extra S: O(1)
     TreeNode prev;
     int mx = 0, cnt = 1;
     List<int> ans = new List<int>();
