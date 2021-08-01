@@ -16,7 +16,7 @@ public class Solution {
     TreeNode prev;
     int mx = 0, cnt = 1;
     List<int> ans = new List<int>();
-    public int[] FindMode(TreeNode root) {
+    public int[] FindMode1(TreeNode root) {
         InOrder(root);
         return ans.ToArray();
     }
@@ -34,5 +34,21 @@ public class Solution {
         }
         prev = root;
         InOrder(root.right);
+    }
+    // extra space
+    Dictionary<int,int> d = new Dictionary<int,int>();
+    public int[] FindMode(TreeNode root) {
+        InOrderWithD(root);
+        foreach (var kv in d) {
+            if (kv.Value == mx) ans.Add(kv.Key);
+        }
+        return ans.ToArray();
+    }
+    void InOrderWithD(TreeNode root) {
+        if (root == null) return;
+        InOrderWithD(root.left);
+        if (!d.ContainsKey(root.val)) d[root.val] = 0;
+        mx = Math.Max(mx, ++d[root.val]);
+        InOrderWithD(root.right);
     }
 }
