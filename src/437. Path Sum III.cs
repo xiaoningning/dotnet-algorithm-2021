@@ -13,6 +13,8 @@
  */
 public class Solution {
     // init 0 in sums for root.val = targetSum
+    // prefix sum
+    // T: O(n), S: O(height of tree)
     Dictionary<int, int> sums = new Dictionary<int, int>(){[0] = 1};
     int ans = 0;
     public int PathSum(TreeNode root, int targetSum) {
