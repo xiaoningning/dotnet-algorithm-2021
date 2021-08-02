@@ -18,6 +18,7 @@ public class Solution {
         PathSum(root, cur, targetSum);
         return ans;
     }
+    // DFS
     void PathSum(TreeNode node, List<int> cur, int target) {
         if (node == null) return;
         if (node.left == null && node.right == null) {
