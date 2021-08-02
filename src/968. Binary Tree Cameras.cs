@@ -19,7 +19,8 @@ public class Solution {
         return st == State.None ? ++ans : ans;
     }
     // DFS to check leave node first
-    // root of leave nodes is cam => min # of cam
+    // parent of leave nodes is cam => it covers itself, children, its parent
+    // this option to min # of cams
     State DFS(TreeNode root) {
         if (root == null) return State.Monitored;
         var left = DFS(root.left);
