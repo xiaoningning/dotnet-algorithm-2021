@@ -13,7 +13,7 @@
  */
 public class Solution {
     // Find, then delete
-    public TreeNode DeleteNode(TreeNode root, int key) {
+    public TreeNode DeleteNode1(TreeNode root, int key) {
         if (root == null) return null;
         var ptr = root;
         TreeNode prev = null;
@@ -38,7 +38,25 @@ public class Solution {
         }
     }
     // Binary search BST
-    public TreeNode DeleteNode1(TreeNode root, int key) {
+    public TreeNode DeleteNode(TreeNode root, int key) {
+        if (root == null) return null;
+        if (root.val == key) {
+            if (root.right == null) return root.left;
+            else {
+                var ptr = root.right;
+                while (ptr.left != null) ptr = ptr.left;
+                ptr.left = root.left;
+                return root.right;
+            }
+        }
+        // subtree cases, but still return root
+        // just update left/right as the root of subtree
+        else if (root.val > key) root.left = DeleteNode(root.left, key);
+        else root.right = DeleteNode(root.right, key);
+        return root;
+    }
+    // Binary search BST with recursion on root.right
+    public TreeNode DeleteNode2(TreeNode root, int key) {
         if (root == null) return null;
         if (root.val == key) {
             if (root.right == null) return root.left;
