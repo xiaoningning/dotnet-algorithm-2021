@@ -12,8 +12,9 @@
  * }
  */
 public class Solution {
+    // recursion
     List<IList<int>> res = new List<IList<int>>();
-    public IList<IList<int>> LevelOrderBottom(TreeNode root) {
+    public IList<IList<int>> LevelOrderBottom2(TreeNode root) {
         LevelOrderBottom(root, 0);
         res.Reverse();
         return res;
@@ -24,6 +25,26 @@ public class Solution {
         res[level].Add(root.val);
         LevelOrderBottom(root.left, level + 1);
         LevelOrderBottom(root.right, level + 1);
+    }
+    // cleaner while version
+    public IList<IList<int>> LevelOrderBottom(TreeNode root) {
+        if (root == null) return res;
+        var q = new Queue<TreeNode>();
+        q.Enqueue(root);
+        while (q.Any()) {
+            var l = new List<int>();
+            // control each level by size
+            int size = q.Count;
+            for (int i = size - 1; i >= 0; i--) {
+                var n = q.Dequeue();
+                l.Add(n.val);
+                if (n.left != null) q.Enqueue(n.left);
+                if (n.right != null) q.Enqueue(n.right);
+            }
+            // insert at the beginning, no reserve
+            res.Insert(0, l);
+        }
+        return res;
     }
     
     Stack<List<TreeNode>> st = new Stack<List<TreeNode>>();
