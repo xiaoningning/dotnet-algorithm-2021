@@ -21,7 +21,7 @@ public class Solution {
     }
     int GetMoves(TreeNode root) {
         if (root == null) return 0;
-        Console.WriteLine("r " + root.val);
+        
         int left = GetMoves(root.left);
         int right = GetMoves(root.right);
         // balance left and right coins
