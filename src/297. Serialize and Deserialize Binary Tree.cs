@@ -31,7 +31,7 @@ public class Codec {
     }
     TreeNode deserialize(string s, ref int i) { 
         var t = GetToken(s, ref i);
-        if (t == "#" || i >= s.Length) return null;
+        if (t == "#") return null;
         
         var root = new TreeNode(Int32.Parse(t));
         root.left = deserialize(s, ref i);
