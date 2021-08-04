@@ -11,8 +11,8 @@ public class Solution {
             foreach (var n in piles) cnt += (n + m - 1) / m;
             if (cnt <= h) r = m;
             else l = m + 1;
-            
         }
+        // T: O(nlogh)
         return r;
     }
 }
