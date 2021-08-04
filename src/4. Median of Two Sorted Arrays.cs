@@ -10,8 +10,8 @@ public class Solution {
         int l = 0, r = n2 * 2;
         // find (L2, R2) in nums2
         while (l <= r) {
-            int m2 = l + (r - l) / 2;
-            int m1 = n1 + n2 - m2;
+            int m2 = l + (r - l) / 2; // right idx of nums2
+            int m1 = n1 + n2 - m2; // right idx of nums1
             int L1 = m1 <= 0 ? Int32.MinValue : nums1[(m1 - 1) / 2];
             int L2 = m2 <= 0 ? Int32.MinValue : nums2[(m2 - 1) / 2];
             int R1 = m1 == n1 * 2 ? Int32.MaxValue : nums1[m1 / 2];
@@ -28,7 +28,9 @@ public class Solution {
         // n1 should <= n2 => idx of median should be in nums2
         // the shorter as nums1
         if (n1 > n2) return FindMedianSortedArrays(nums2, nums1);
-        int k = (n1 + n2 + 1) / 2;
+        // k is right side idx of the combined nums
+        // m1 + m2 = k
+        int k = (n1 + n2 + 1) / 2; 
         int l = 0, r = n1;
         // find R1 in nums1
         while (l < r) {
