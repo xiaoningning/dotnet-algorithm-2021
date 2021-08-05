@@ -1,7 +1,7 @@
 public class Solution {
     // media = (max(L1, L2) + min(R1,R2)) / 2
     // T: O(log(min(n1, n2)))
-    public double FindMedianSortedArrays(int[] nums1, int[] nums2) {
+    public double FindMedianSortedArrays2(int[] nums1, int[] nums2) {
         int n1 = nums1.Length, n2 = nums2.Length;
         // the longer as nums1
         if (n1 < n2) return FindMedianSortedArrays(nums2, nums1);
@@ -49,5 +49,23 @@ public class Solution {
         int c2 = Math.Min(m1 >= n1 ? Int32.MaxValue : nums1[m1], 
                          m2 >= n2 ? Int32.MaxValue : nums2[m2]);
         return (c1 + c2) / 2.0;
+    }
+    // T: O(log(n1 + n2))
+    public double FindMedianSortedArrays(int[] nums1, int[] nums2) {
+        int n1 = nums1.Length, n2 = nums2.Length;
+        int left = (n1 + n2 + 1) / 2;
+        int right = (n1 + n2 + 2) / 2;
+        return (FindKth(nums1, 0, nums2, 0, left) + FindKth(nums1, 0, nums2, 0, right)) / 2.0;
+    }
+    // find kth smallest n in nums1 and nums2
+    int FindKth(int[] nums1, int i, int[] nums2, int j, int k) {
+        if (i >= nums1.Length) return nums2[j + k -1];
+        if (j >= nums2.Length) return nums1[i + k -1];
+        if (k == 1) return Math.Min(nums1[i], nums2[j]);
+        int mid1 = (i + k / 2 - 1) < nums1.Length ? nums1[i + k/2 - 1] : Int32.MaxValue;
+        int mid2 = (j + k / 2 - 1) < nums2.Length ? nums2[j + k/2 - 1] : Int32.MaxValue;
+        // k can be odd or even => k - k / 2 != k / 2
+        if (mid1 < mid2) return FindKth(nums1, i + k/2, nums2, j, k - k/2);
+        else return FindKth(nums1, i, nums2, j + k/2, k - k/2);
     }
 }
