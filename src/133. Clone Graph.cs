@@ -24,7 +24,8 @@ public class Node {
 public class Solution {
     // map to its clone
     Dictionary<Node, Node> m = new Dictionary<Node, Node>();
-    public Node CloneGraph(Node node) {
+    // DFS
+    public Node CloneGraph1(Node node) {
         if (node == null) return null;
         if (m.ContainsKey(node)) return m[node];
         var n = new Node(node.val);
@@ -33,6 +34,27 @@ public class Solution {
             // clone edge even if the node is already clone
             n.neighbors.Add(CloneGraph(c));
         }
+        // T: O(V+E)
         return n;
+    }
+    // BFS
+    public Node CloneGraph(Node node) {
+        if (node == null) return null;
+        var q = new Queue<Node>();
+        q.Enqueue(node);
+        m[node] = new Node(node.val);
+        while (q.Any()) {
+            var t = q.Dequeue();
+            foreach (var c in t.neighbors) {
+                if (!m.ContainsKey(c)) {
+                    m[c] = new Node(c.val);
+                    // c is not cloned yet, put it into queue
+                    q.Enqueue(c);
+                }
+                m[t].neighbors.Add(m[c]);
+            }
+        }
+        // T: O(V+E)
+        return m[node];
     }
 }
