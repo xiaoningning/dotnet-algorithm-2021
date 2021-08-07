@@ -1,14 +1,14 @@
 public class Solution {
     Dictionary<int, List<int>> prereq = new Dictionary<int, List<int>>();
     Dictionary<int, List<int>> course = new Dictionary<int, List<int>>();
-    HashSet<int> visited = new HashSet<int>();
+    HashSet<int> taken = new HashSet<int>();
     // BFS
      public bool CanFinish1(int numCourses, int[][] prerequisites) {
         int n = prerequisites.Length;
         for (int c = 0; c < numCourses; c++)  {
             prereq[c] = new List<int>();
             course[c] = new List<int>();
-            if (!Array.Exists(prerequisites, p => p[0] == c)) visited.Add(c);
+            if (!Array.Exists(prerequisites, p => p[0] == c)) taken.Add(c);
         }
         // build directed graph
         for (int i = 0; i < n; i++) {
@@ -18,18 +18,18 @@ public class Solution {
             course[co].Add(pre);
         }
         var q = new Queue<int>();
-        foreach (int c in visited) q.Enqueue(c);
+        foreach (int c in taken) q.Enqueue(c);
         while (q.Any()) {
             var pre = q.Dequeue();
             foreach (var c in prereq[pre])  {
                 course[c].Remove(pre);
                 if (!course[c].Any())  {
-                    visited.Add(c);
+                    taken.Add(c);
                     q.Enqueue(c);
                 }
             }
         }
-        return visited.Count == numCourses;
+        return taken.Count == numCourses;
     }
     // DFS
     int[] courseState;
