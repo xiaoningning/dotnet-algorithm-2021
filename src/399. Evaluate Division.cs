@@ -15,6 +15,7 @@ public class Solution {
             var visited = new HashSet<string>();
             ans.Add(DivideDFS(q[0], q[1], visited));
         }
+        // T: O(e + query*e) S: O(e)
         return ans.ToArray();
     }
     double DivideDFS(string up, string down, HashSet<string> visited) {
@@ -49,6 +50,7 @@ public class Solution {
             }
             else ans.Add(-1);
         }
+        // T: O(e + query) S: O(e)
         return ans.ToArray();
     }
     void Union(string a, string b, double val) {
