@@ -4,6 +4,7 @@ public class Solution {
     public bool CanVisitAllRooms1(IList<IList<int>> rooms) {
         if (!rooms.Any()) return true;
         DFS(rooms, 0);
+        // T: O(V + E)
         return seen.Count == rooms.Count;
     }
     void DFS(IList<IList<int>> rooms, int i) {
@@ -25,6 +26,7 @@ public class Solution {
                 q.Enqueue(k);
             }
         }
+        // T: O(V + E)
         return seen.Count == rooms.Count;
     }
 }
