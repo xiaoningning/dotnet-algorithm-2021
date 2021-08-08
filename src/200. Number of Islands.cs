@@ -24,6 +24,7 @@ public class Solution {
                 }
             }
         }
+        // T: O(m*n)
         return ans;
     }
     // DFS
@@ -38,6 +39,7 @@ public class Solution {
                 DFS(grid, i, j);
             }
         }
+        // T: O(m*n)
         return ans;
     }
     void DFS (char[][] grid, int i, int j) {
