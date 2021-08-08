@@ -29,6 +29,7 @@ public class Solution {
                 }
             }
         }
+         // T: O(n)
         return taken.Count == numCourses;
     }
     // DFS
@@ -47,6 +48,7 @@ public class Solution {
         for (int c = 0; c < numCourses; c++)  {
            if (!canDFS(c)) return false;
         }
+        //T: O(n^2)
         return true;
     }
     bool canDFS(int c) {
