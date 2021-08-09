@@ -61,8 +61,9 @@ public class Solution {
         // T: O(V+logE)
         return true;
     }
+    // union find + path compression
     int UnionFind(int[] roots, int i) {
-        return roots[i] == i ? i : UnionFind(roots, roots[i]);
+        return roots[i] == i ? i : roots[i] = UnionFind(roots, roots[i]);
     }
 }
 
