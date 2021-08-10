@@ -1,5 +1,5 @@
 public class Solution {
-    // single source shorted path graph problem
+    // single source shortest path graph problem
     // Bellman-Ford v2
     public int NetworkDelayTime2(int[][] times, int n, int k) {
         int MAX = 100001;
