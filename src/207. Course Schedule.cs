@@ -54,7 +54,7 @@ public class Solution {
                 }
             }
         }
-         // T: O(n)
+         // T: O(n^2)
         return taken.Count == numCourses;
     }
     // DFS
@@ -73,7 +73,7 @@ public class Solution {
         for (int c = 0; c < numCourses; c++)  {
            if (!canDFS(c)) return false;
         }
-        // T: O(n^2)
+        // T: O(n) when cycle, it stops
         return true;
     }
     bool canDFS(int c) {
