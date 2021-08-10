@@ -39,7 +39,7 @@ public class Solution {
     }
     
     // Bellman-Ford v1
-    public int NetworkDelayTime(int[][] times, int n, int k) { 
+    public int NetworkDelayTime3(int[][] times, int n, int k) { 
         // not use MaxValue to avoid overflow
         int MAX = 100001;
         // dist from k to i
@@ -60,11 +60,11 @@ public class Solution {
         return ans == MAX ? -1 : ans;
     }
     
-    // Floyd-Warshall : dist[i, j] > dist[i, x] + dist[x, j]
+    // Floyd-Warshall v1 : dist[i, j] > dist[i, x] + dist[x, j]
     public int NetworkDelayTime1(int[][] times, int n, int k) {
         int[,] dist = new int[n+1, n+1];
         for (int i = 1; i <= n; i++) {
-                for (int j = 1; j <= n; j++) dist[i, j] = -1;
+            for (int j = 1; j <= n; j++) dist[i, j] = -1;
         }
         for (int i = 1; i <= n; i++) dist[i,i] = 0;
         foreach (var t in times) dist[t[0], t[1]] = t[2];
@@ -83,6 +83,33 @@ public class Solution {
         int ans = Int32.MinValue;
         for (int i = 1; i <= n; i++) {
             if (dist[k, i] < 0) return -1;
+            ans = Math.Max(ans, dist[k, i]);
+        }
+        // T: O(V^3)
+        return ans;
+    }
+    // Floyd-Warshall v2 : dist[i, j] > dist[i, x] + dist[x, j]
+    public int NetworkDelayTime(int[][] times, int n, int k) {
+        // not use MaxValue to avoid overflow
+        int MAX = 100001;
+        int[,] dist = new int[n+1, n+1];
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= n; j++) dist[i, j] = MAX;
+        }
+        foreach (var t in times) dist[t[0], t[1]] = t[2];
+        for (int i = 1; i <= n; i++) dist[i,i] = 0;
+        // calculate all dist
+        for (int x = 1; x <= n; x++) {
+            for (int i = 1; i <= n; i++) {
+                for (int j = 1; j <= n; j++) {
+                    // if dist[x,j] == MAX, it means not reachable of this round
+                    dist[i, j] = Math.Min(dist[i, j], dist[i, x] + dist[x, j]);
+                }
+            }
+        }
+        int ans = -1;
+        for (int i = 1; i <= n; i++) {
+            if (dist[k, i] == MAX) return -1;
             ans = Math.Max(ans, dist[k, i]);
         }
         // T: O(V^3)
