@@ -109,7 +109,7 @@ public class Solution {
         }
         int ans = -1;
         for (int i = 1; i <= n; i++) {
-            if (dist[k, i] == MAX) return -1;
+            if (dist[k, i] >= MAX) return -1;
             ans = Math.Max(ans, dist[k, i]);
         }
         // T: O(V^3)
