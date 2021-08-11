@@ -6,7 +6,7 @@ public class Solution {
     int[] dfn; // the sequence (timestamp) order of node being searched
     int timer = 0;
     int MAX;
-    public IList<IList<int>> CriticalConnections(int n, IList<IList<int>> connections) {
+    public IList<IList<int>> CriticalConnections1(int n, IList<IList<int>> connections) {
         low = new int[n]; dfn = new int[n]; MAX = n;
         for (int i = 0; i < n; i++) g[i] = new List<int>();
         for (int i = 0; i < n; i++) low[i] = MAX;
@@ -31,6 +31,34 @@ public class Solution {
             // if v is searched before u and not a parent of u,
             // low[u] should be min (low[u], dfn[v])
             else low[u] = Math.Min(low[u], dfn[v]);
+        }
+    }
+    // pre-order (rank/depth) of tree implementation
+    // if cycle, the node should have the same order as the root of subtree
+    int[] rank;
+    public IList<IList<int>> CriticalConnections(int n, IList<IList<int>> connections) {
+        MAX = n;
+        rank = new int[n];
+        for (int i = 0; i < n; i++) g[i] = new List<int>();
+        for (int i = 0; i < n; i++) rank[i] = MAX;
+        foreach (var c in connections)  {
+            g[c[0]].Add(c[1]);
+            g[c[1]].Add(c[0]);
+        }
+        DFSRank(0, 0, 0);
+        // T: O(V+E)
+        return ans;
+    }
+    // depth is similar to dfn
+    // rank is similar to low
+    void DFSRank(int u, int parent, int depth) {
+        if (rank[u] != MAX) return;
+        rank[u] = depth;
+        foreach (int v in g[u]) {
+            if (v == parent) continue;
+            if (rank[v] == MAX) DFSRank(v, u, depth + 1);
+            rank[u] = Math.Min(rank[u], rank[v]);
+            if (rank[v] > depth) ans.Add(new List<int>(){u, v});
         }
     }
 }
