@@ -33,7 +33,7 @@ public class Solution {
                 for (int i = 0; i < n; i++) {
                     // i is not in mask, or j == i
                     if (i == j || (mask & 1 << i) == 0) continue;
-                    // path to without j appends none overlapped rest substring of j
+                    // path to i without j appends none overlapped rest substring of j
                     var t = dp[mask ^ (1 << j), i] + words[j].Substring(overlap[i,j]);
                     if (dp[mask, j] == null || t.Length < dp[mask, j].Length) dp[mask, j] = t;
                 }
