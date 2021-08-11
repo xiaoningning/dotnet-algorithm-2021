@@ -1,4 +1,5 @@
 public class Solution {
+    // It was Friend Circles.  It is the same
     // Union Find
     int[] roots;
     public int FindCircleNum(int[][] isConnected) {
