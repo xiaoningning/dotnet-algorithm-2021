@@ -17,8 +17,8 @@ public class Solution {
         for (int i = m - 1; i >= 0; i--) {
             for (int j = n - 1; j >= 0; j--) {
                 if (grid[i][j] == 1) continue;
-                if (i < n - 1) grid[i][j] = Math.Min(grid[i][j], grid[i + 1][j] + 1);
-                if (j < m - 1) grid[i][j] = Math.Min(grid[i][j], grid[i][j + 1] + 1);
+                if (i < m - 1) grid[i][j] = Math.Min(grid[i][j], grid[i + 1][j] + 1);
+                if (j < n - 1) grid[i][j] = Math.Min(grid[i][j], grid[i][j + 1] + 1);
                 ans = Math.Max(ans, grid[i][j]);
             }
         }
