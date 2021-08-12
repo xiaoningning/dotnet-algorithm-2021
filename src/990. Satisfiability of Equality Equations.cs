@@ -1,5 +1,5 @@
 public class Solution {
-    // Union Find
+    // DijKstra set: Union Find
     int[] roots;
     public bool EquationsPossible(string[] equations) {
         // char to int
