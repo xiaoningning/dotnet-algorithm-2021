@@ -15,19 +15,19 @@ public class Solution {
             if (visited[i] == 1) continue;
             var idx = new List<int>();
             var str = new List<char>();
-            DFS(s, i, ref idx, ref str);
+            DFS(s, i, idx, str);
             str.Sort(); idx.Sort();
             for (int k = 0; k < idx.Count; k++) ans[idx[k]] = str[k];
         }
         // T: O(nlogn + k*(V+E))
         return new string(ans);
     }
-    void DFS(string s, int i, ref List<int> idx, ref List<char> str) {
+    void DFS(string s, int i, List<int> idx, List<char> str) {
         if (visited[i] == 1) return;
         visited[i] = 1;
         str.Add(s[i]);
         idx.Add(i);
-        foreach (int j in g[i]) DFS(s, j, ref idx, ref str); 
+        foreach (int j in g[i]) DFS(s, j, idx, str); 
     }
     // Union Find
     int[] roots;
@@ -46,7 +46,7 @@ public class Solution {
             int ri = UnionFind(roots,i);
             if (!idx.ContainsKey(ri)) idx[ri] = new List<int>();
             if (!str.ContainsKey(ri)) str[ri] = new List<char>();
-            idx[ri].Add(i);
+            idx[ri].Add(i);// idx is already sorted
             str[ri].Add(s[i]);
         }
         char[] ans = new char[n];
