@@ -1,6 +1,6 @@
 public class Solution {
     // BFS
-    // search over stop TLE
+    // search over bus stop TLE
     // search over bus route 
     // T: O(m*n)
     public int NumBusesToDestination(int[][] routes, int source, int target) {
