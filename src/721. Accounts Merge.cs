@@ -1,8 +1,45 @@
 public class Solution {
     // OJ failed by sorting result not the same
+    // BFS
+    public IList<IList<string>> AccountsMerge(IList<IList<string>> accounts) {
+        var users = new Dictionary<string, List<int>>();
+        var ans = new List<IList<string>>();
+        int n = accounts.Count;
+        for (int i = 0; i < n; i++) {
+            for (int j = 1; j < accounts[i].Count; j++) {
+                if (!users.ContainsKey(accounts[i][j])) users[accounts[i][j]] = new List<int>();
+                users[accounts[i][j]].Add(i);
+            }
+        }
+        var visited = new int[n];
+        for (int i = 0; i < n; i++) {
+            if (visited[i] == 1) continue;
+            var q = new Queue<int>();
+            var st = new HashSet<string>();
+            q.Enqueue(i);
+            while (q.Any()) {
+                var t = q.Dequeue();
+                visited[t] = 1;
+                var mails = new List<string>();
+                for (int j = 1; j < accounts[t].Count; j++) mails.Add(accounts[t][j]);
+                foreach (string m in mails) {
+                    st.Add(m);
+                    foreach (int id in users[m]) {
+                        if (visited[id] == 1) continue;
+                        q.Enqueue(id);
+                    }
+                }
+            }
+            var lst = st.ToList();
+            lst.Sort();
+            lst.Insert(0, accounts[i][0]);
+            ans.Add(lst);
+        }
+        return ans;
+    }
     // Dijkstra set: Union find
     int[] roots;
-    public IList<IList<string>> AccountsMerge(IList<IList<string>> accounts) {
+    public IList<IList<string>> AccountsMerge1(IList<IList<string>> accounts) {
         Dictionary<int, string> names = new Dictionary<int, string>();
         Dictionary<string, int> ids = new Dictionary<string, int>(); 
         Dictionary<int, List<string>> merged = new Dictionary<int, List<string>>();
