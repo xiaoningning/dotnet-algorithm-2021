@@ -1,7 +1,7 @@
 public class Solution {
     public int[][] FloodFill(int[][] image, int sr, int sc, int newColor) {
         int color = image[sr][sc];
-        if (color != newColor) return image;
+        if (color == newColor) return image;
         int m = image.Length, n = image[0].Length;
         int[,] dirs = new int[4,2]{{0,1}, {1,0}, {-1,0}, {0,-1}};
         var q = new Queue<int>();
