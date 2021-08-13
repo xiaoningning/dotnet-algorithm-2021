@@ -1,6 +1,6 @@
 public class Solution {
     // matrix scan
-    // 542. 01 matrix
+    // similar to 542. 01 matrix
     public int MaxDistance(int[][] grid) {
         int m = grid.Length, n = grid[0].Length;
         for (int i = 0; i < m; i++) {
