@@ -26,6 +26,7 @@ public class Solution {
                 var t = q.Dequeue();
                 visited.Add(t);
                 int node = t.Item1, clr = t.Item2;
+                // keep previous steps of each dst node
                 ans[node] = ans[node] >= 0 ? Math.Min(ans[node], steps) : steps;
                 var edges = clr == 1 ? r[node] : b[node];
                 foreach (int nx in edges) {
