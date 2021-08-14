@@ -33,7 +33,13 @@ public class Solution {
         return second;
     }
     // T: O(logn)
-    int UnionFind(int[] roots, int x) {
+    // Union Find recursion
+    int UnionFind1(int[] roots, int x) {
         return roots[x] == x ? x : roots[x] = UnionFind(roots, roots[x]);
+    }
+    // Union Find while loop
+    int UnionFind(int[] roots, int x) {
+        while (roots[x] != x) x = roots[roots[x]];
+        return x;
     }
 }
