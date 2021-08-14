@@ -24,7 +24,7 @@ public class Solution {
             if (e[1] == -1) continue;
             int p0 = UnionFind(roots, e[0]);
             int p1 = UnionFind(roots, e[1]);
-            // case2 or case 3 (cycle but no 2 parents)
+            // case2 or case 3 (cycle and 2 parents)
             // cycle edge must be last of redundant one
             if (p0 == p1) return first[0] == 0 ? e : first;
             roots[p1] = p0;
