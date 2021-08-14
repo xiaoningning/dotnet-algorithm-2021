@@ -18,6 +18,10 @@ public class Solution {
         // player can only push box along the same direction
         // track box and player position
         // check if player can reach the node of the same directino along with target
+        // bonus: can encode key = (bx*n+by) << 16 | (px*n+py)
+        // or key = (bx << 24) | (by << 16) | (px << 8) | py;
+        // decode: bx*n + by = key >> 16 & 111111111111111;
+        // bx = key >>24 & 11111111;
         q.Enqueue(new int[]{B[0], B[1], P[0], P[1]});     
         int ans = 0;
         // track box and player position
