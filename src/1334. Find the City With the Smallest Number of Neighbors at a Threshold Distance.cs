@@ -63,6 +63,7 @@ public class Solution {
         q.Enqueue(s);
         while (q.Any()) {
             var t = q.Dequeue();
+            // prunning
             if (dist[t] > T) continue;
             foreach (var x in g[t]) {
                 int nx = x.Item1, w = x.Item2;
