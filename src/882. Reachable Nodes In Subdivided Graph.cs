@@ -37,6 +37,7 @@ public class Solution {
             int wv = nodes.ContainsKey(e[1]) ? nodes[e[1]] : 0;
             ans += Math.Min(e[2], wu + wv);
         }
+        // T: O(E*LogE) with prunning, O(E*E) without prunning
         return ans;
     }
 }
