@@ -1,4 +1,6 @@
 public class Solution {
+    // DFS
+    // T: O(n!)
     public int NumSquarefulPerms(int[] nums) {
         int n = nums.Length;
         int[] used = new int[n];
@@ -13,6 +15,7 @@ public class Solution {
                 if (used[i] == 1) continue;
                 // avoid duplication
                 if (i > 0 && used[i - 1] == 0 && nums[i - 1] == nums[i]) continue;
+                // prune invalid permutation
                 if (lst.Any() && !isSquareful(lst.Last(), nums[i])) continue;
                 used[i] = 1;
                 lst.Add(nums[i]);
