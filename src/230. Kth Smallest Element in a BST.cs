@@ -24,6 +24,7 @@ public class Solution {
         return GetCnt(root.left) + 1 + GetCnt(root.right);
     }
     // if tree is updated so ofen, keep cnt in the node.  it is faster
+    // T: O(logn)
     public int KthSmallest(TreeNode root, int k) {
         if (root == null) return -1;
         var myTree = BuildTree(root);
@@ -49,6 +50,7 @@ public class Solution {
         return n;
     }
 }
+// Binary tree with cnt to avoid repeated counting
 public class Node {
     public int val, cnt; // cnt = cnt(left) + cnt(right) + 1
     public Node left, right;
