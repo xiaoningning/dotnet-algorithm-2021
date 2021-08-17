@@ -1,5 +1,5 @@
 public class NumMatrix {
-    int[,] dp; // prefix sum of (i,j)
+    int[,] dp; // Cumulative sum of (i,j)
     public NumMatrix(int[][] matrix) {
         if (matrix.Length == 0 || matrix[0].Length == 0) return;
         int m = matrix.Length, n = matrix[0].Length;
