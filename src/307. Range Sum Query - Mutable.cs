@@ -1,10 +1,57 @@
 // Segment tree (Binary tree with sum val)
-// Fenwick Tree (Binary Index Tree)
 // T: O(logn)
 public class NumArray {
+    SegmentTreeNode root;
+    public NumArray(int[] nums) {
+        root = BuildTree(0, nums.Length - 1, nums);
+    }
+    public void Update(int index, int val) {
+        UpdateTree(root, index, val);
+    }
+    // inclusive on left
+    public int SumRange(int left, int right) {
+        return GetSum(root, left, right);
+    }
+    int GetSum(SegmentTreeNode root, int i, int j) {
+        if (root.start == i && root.end == j) return root.sum;
+        int mid = root.start + (root.end - root.start) / 2;
+        if (j <= mid) return GetSum(root.left, i, j);
+        else if (i > mid) return GetSum(root.right, i, j);
+        else return GetSum(root.left, i, mid) + GetSum(root.right, mid + 1, j);
+    }
+    void UpdateTree(SegmentTreeNode root, int idx, int val) {
+        if (root.start == idx && root.end == idx) { root.sum = val; return; }
+        int mid = root.start + (root.end - root.start) / 2;
+        if (idx <= mid) UpdateTree(root.left, idx, val);
+        if (idx > mid) UpdateTree(root.right, idx, val);
+        root.sum = root.left.sum + root.right.sum;
+    }
+    SegmentTreeNode BuildTree(int s, int e, int[] nums) {
+        if (s == e) return new SegmentTreeNode(s, e, nums[s]);
+        int mid = s + (e - s) / 2;
+        var left = BuildTree(s, mid, nums);
+        var right = BuildTree(mid+1, e, nums);
+        return root = new SegmentTreeNode(s, e, left.sum + right.sum, left, right);
+    }
+}
+public class SegmentTreeNode {
+    public int start, end, sum;
+    public SegmentTreeNode left, right;
+    public SegmentTreeNode(int s, 
+                           int e, 
+                           int val, 
+                           SegmentTreeNode l = null, 
+                           SegmentTreeNode r = null) {
+        start = s; end = e; sum = val;
+        left = l; right = r;
+    }
+}
+// Fenwick Tree (Binary Index Tree)
+// T: O(logn)
+public class NumArray1 {
     FenwickTree tree;
     int[] data;
-    public NumArray(int[] nums) {
+    public NumArray1(int[] nums) {
         data = (int[]) nums.Clone();
         tree = new FenwickTree(nums.Length);
         for (int i = 0; i < nums.Length; i++) 
