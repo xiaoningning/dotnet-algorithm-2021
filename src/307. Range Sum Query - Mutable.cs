@@ -1,4 +1,4 @@
-// Segment tree (binary tree with sum val)
+// Segment tree (Binary tree with sum val)
 // Fenwick Tree (Binary Index Tree)
 // T: O(logn)
 public class NumArray {
@@ -43,6 +43,27 @@ public class FenwickTree {
         return sum;
     }
 }
+/**
+Fenwick Tree
+C1 = A1
+C2 = A1 + A2
+C3 = A3
+C4 = A1 + A2 + A3 + A4
+C5 = A5
+C6 = A5 + A6
+C7 = A7
+C8 = A1 + A2 + A3 + A4 + A5 + A6 + A7 + A8
+idx             binary        low bit
+1               0001          1
+2               0010          2
+3               0011          1
+4               0100          4
+5               0101          1
+6               0110          2
+7               0111          1
+8               1000          8
+*/
+
 /**
  * Your NumArray object will be instantiated and called as such:
  * NumArray obj = new NumArray(nums);
