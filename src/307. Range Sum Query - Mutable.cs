@@ -1,3 +1,20 @@
+// brute force => TLE
+public class NumArray2 {
+    int[] data;
+    public NumArray2(int[] nums) {
+        data = (int[]) nums.Clone();
+    }
+    public void Update(int index, int val) {
+        data[index] = val;
+    }
+    // inclusive on left
+    public int SumRange(int left, int right) {
+        int sum = 0;
+        for (int i = left; i <= right; i++) sum += data[i];
+        return sum;
+    }
+}
+
 // Segment tree (Binary tree with sum val)
 // T: O(logn)
 public class NumArray {
