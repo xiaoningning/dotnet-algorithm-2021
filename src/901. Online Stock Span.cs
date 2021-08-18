@@ -7,6 +7,7 @@ public class StockSpanner {
     public int Next(int price) {
         int cnt = 1;
         // backward consecutive days
+        // pop previous smaller price since cnt is cumulated to current one
         while (q.Any() && q.Peek().Item1 <= price) cnt += q.Pop().Item2;
         q.Push((price, cnt));
         return cnt;
