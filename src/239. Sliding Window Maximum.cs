@@ -1,20 +1,22 @@
 public class Solution {
     // Monotonic Queue
     // T: O(n)
-    public int[] MaxSlidingWindow1(int[] nums, int k) {
+    public int[] MaxSlidingWindow(int[] nums, int k) {
+        if (k == 0) return nums;
         var ans = new List<int>();
         var q = new List<int>();
         for (int i = 0; i < nums.Length; i++) {
-            if (q.Any() && q.First() + k <= i) q.RemoveAt(0);
             // keep the same max value in the monotonic queue
             while (q.Any() && nums[q.Last()] < nums[i]) q.RemoveAt(q.Count - 1);
             q.Add(i);
-            // assume k is always invalid
             if (i >= k - 1) ans.Add(nums[q.First()]);
+            // q.Add() first, no need to check q.Any()
+            if (i >= q.First() + k - 1) q.RemoveAt(0);
+            
         }
         return ans.ToArray();
     }
-    public int[] MaxSlidingWindow(int[] nums, int k) {
+    public int[] MaxSlidingWindow1(int[] nums, int k) {
         var mq = new MonotonicQueue();
         var ans = new List<int>();
         for (int i = 0; i < nums.Length; i++) {
