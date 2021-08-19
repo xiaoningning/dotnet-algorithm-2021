@@ -1,4 +1,5 @@
 public class Solution {
+    // T: O(sum(dictionary) + n)
     public string ReplaceWords(IList<string> dictionary, string sentence) {
         var root = new TrieNode();
         foreach (string w in dictionary) Insert(root, w);
