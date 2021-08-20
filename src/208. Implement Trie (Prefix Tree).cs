@@ -1,3 +1,4 @@
+// search/insert T: O(word.Length)
 public class Trie {
     /** Initialize your data structure here. */
     public Trie() { root = new TrieNode(); }
