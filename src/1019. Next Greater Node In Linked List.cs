@@ -32,7 +32,8 @@ public class Solution {
         while (st.Any()) ans[st.Pop().Item2] = 0;
         return ans;
     }
-    public int[] NextLargerNodes(ListNode head) {
+    // reverse + monotonic stack
+    public int[] NextLargerNodes2(ListNode head) {
         var nums = new List<int>();
         var p = head;
         while (p != null) { nums.Add(p.val); p = p.next; }
@@ -44,6 +45,21 @@ public class Solution {
             while (st.Any() && nums[i] >= st.Peek()) st.Pop();
             ans[i] = st.Any() ? st.Peek() : 0;
             st.Push(nums[i]);
+        }
+        return ans;
+    }
+    // V2 without reverse
+    public int[] NextLargerNodes(ListNode head) {
+        var nums = new List<int>();
+        int[] ans = new int[1];
+        var st = new Stack<int>();
+        int i = 0;
+        while (head != null) {
+            nums.Add(head.val);
+            while (st.Any() && head.val > nums[st.Peek()]) ans[st.Pop()] = head.val;
+            st.Push(i);
+            Array.Resize(ref ans, ++i);
+            head = head.next;
         }
         return ans;
     }
