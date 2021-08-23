@@ -1,6 +1,6 @@
 public class Solution {
     // DFS
-    // T: O(2^n), S: O(n)
+    // T: O(n*2^n), S: O(n)
     public IList<IList<int>> Subsets1(int[] nums) {
         var ans = new List<IList<int>>();
         Action<int, int, List<int>> DFS = null;
