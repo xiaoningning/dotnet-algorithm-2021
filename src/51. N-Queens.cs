@@ -2,6 +2,7 @@ public class Solution {
     // DFS
     public IList<IList<string>> SolveNQueens(int n) {
         var ans = new List<IList<string>>();
+        // check if valid to put Q at (row, col)
         Func<List<string>, int, int, bool> isValid = (q, row, col) => {
             for (int i = 0; i < row; i++) if (q[i][col] == 'Q') return false;
             for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) if (q[i][j] == 'Q') return false;
@@ -22,7 +23,6 @@ public class Solution {
                 }
             }
         };
-        
         // init as all '.'
         var queens = new List<string>();
         int cnt = n;
