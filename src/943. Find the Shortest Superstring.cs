@@ -1,7 +1,6 @@
 public class Solution {
     // DFS: TLE
-    // ans is not correct
-    public string ShortestSuperstring2(string[] words) {
+    public string ShortestSuperstring1(string[] words) {
         int n = words.Length;
         int[,] overlap = new int[n,n];
         for (int i = 0; i < n; i++) {
@@ -18,21 +17,45 @@ public class Solution {
             }
         }
         int mn = Int32.MaxValue;
+        /*
+        int[] bestPath = new int[n];
+        int[] path = new int[n];
+        Action<int, int, int> DFS = null;
+        DFS = (start, len, used) => {
+            if (len >= mn) return;
+            // clone path to bestPath for avoiding change on path
+            if (start == n) { mn = len; bestPath = (int[])path.Clone(); return; }
+            for (int i = 0; i < n; i++) {
+                if ((used & (1 << i)) != 0) continue;
+                path[start] = i;
+                int nx = start == 0 ? words[i].Length : len + words[i].Length - overlap[path[start - 1], i];
+                DFS(start + 1, nx, used | 1 << i);
+            }
+        };
+        DFS(0, 0, 0);
+        string ans = words[bestPath[0]];
+        for (int k = 1; k < n; ++k) {
+            int i = bestPath[k - 1], j = bestPath[k];
+            ans += words[j].Substring(overlap[i,j]);
+        }
+        */
+        
+        // DFS v2 cleaner code
         string ans = "";
-        int[] used = new int[n];
-        Action<int, string> DFS = null;
-        DFS = (start, cur) => {
+        int[] path = new int[n];
+        Action<int, int, string> DFS1 = null;
+        DFS1 = (start, used, cur) => {
             if (cur.Length >= mn) return;
             if (start == n) { mn = cur.Length; ans = cur; return; }
             for (int i = 0; i < n; i++) {
-                if (used[i] == 1) continue;
-                used[i] = 1;
-                string tmp = cur;
-                string nx = cur + (start == 0 || overlap[start - 1, i] == 0 ? words[i] : words[i].Substring(0, overlap[start - 1, i]));
-                DFS(start + 1, nx);
+                if ((used & (1 << i)) != 0) continue;
+                path[start] = i;
+                string nx = start == 0 ? words[i] : cur + words[i].Substring(overlap[path[start - 1], i]);
+                DFS1(start + 1, used | 1 << i, nx);
             }
         };
-        DFS(0,"");
+        
+        DFS1(0,0,"");
         return ans;
     }
     // Travelling salesman problem (TSP) + Hamiltonian path
