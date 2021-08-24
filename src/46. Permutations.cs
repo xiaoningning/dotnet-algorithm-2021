@@ -15,7 +15,7 @@ public class Solution {
                 tmp.Add(n);
                 DFS(tmp);
                 seen.Remove(n);
-                tmp.Remove(n);
+                tmp.RemoveAt(tmp.Count - 1);
             }
         };
         
