@@ -73,14 +73,15 @@ public class Solution {
             // target = 0 -> 1 -> 3 -> 7 -> 15 -> 31
             // => target = 2^n - 1
             int n = (int)Math.Ceiling(Math.Log(t + 1) / Math.Log(2));
-            // AA...A: (nA) best case
+            // AA...A: (nA) == t best case
             if (t == (1 << n) - 1) return memo[t] = n;
             // AA...AR: (nA + 1R) + dp(left) 
             memo[t] = n + 1 + DP((1 << n) - 1 - t);  
+            // nA > t case: m < n - 1
             for (int m = 0; m < n - 1; ++m) {
                 int cur = (1 << (n - 1)) - (1 << m);
                 //AA...ARA...AR: (n-1A + 1R + mA + 1R) + dp(left) 
-                memo[t] = Math.Min(memo[t], n + m + 1 + DP(t - cur)); 
+                memo[t] = Math.Min(memo[t], (n - 1) + 1 + m + 1 + DP(t - cur)); 
             }
             return memo[t];  
         };
