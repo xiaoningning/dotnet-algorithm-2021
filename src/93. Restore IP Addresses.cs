@@ -1,6 +1,6 @@
 public class Solution {
     // T: O(3^4)
-    public IList<string> RestoreIpAddresses(string s) {
+    public IList<string> RestoreIpAddresses1(string s) {
         var ans = new List<string>();
         Action<string, int, string> DFS = null;
         DFS = (str, level, ip) => {
@@ -18,7 +18,7 @@ public class Solution {
         DFS(s, 0, "");
         return ans;
     }
-    public IList<string> RestoreIpAddresses1(string s) {
+    public IList<string> RestoreIpAddresses(string s) {
         var ans = new List<string>();
         Func<string, bool> isValid = (s) => {
             if (s == "" || (s.Length > 1 && s[0] == '0') || s.Length > 3) return false;
@@ -38,6 +38,7 @@ public class Solution {
                     var t = DFS(str.Substring(i), level - 1);
                     foreach (var s in t) ans.Add(ip + "." + s);
                 }
+                else break;
             }
             return ans;
         };
