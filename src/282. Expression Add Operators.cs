@@ -1,7 +1,7 @@
 public class Solution {
     // DFS
-    // Time complexity: O(4^n)
-    // Space complexity: O(n^2) -> O(n)
+    // Time complexity: O(4^n) <= +/-/*/no-op
+    // Space complexity: O(n)
     public IList<string> AddOperators(string num, int target) {
         var ans = new List<string>();
         Action<int, int, int, string> DFS = null;
@@ -19,7 +19,7 @@ public class Solution {
                 // if num string is very long, it could be overflow int32
                 if (tVal > Int32.MaxValue) break;
                 int curVal = (int)tVal;
-                if (start != 0) {
+                if (cur.Length != 0) {
                     DFS(start + i, curVal, val + curVal, cur + "+" + t);
                     DFS(start + i, -curVal, val - curVal, cur + "-" + t);
                     DFS(start + i, prev * curVal, val - prev + prev * curVal, cur + "*" + t);
