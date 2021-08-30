@@ -8,8 +8,8 @@ public class Solution {
         for (int i = 2; i <= n; i++) dp[i] = dp[i - 1] + dp[i - 2];
         return dp[n];
     }
-    // T: O(n), S: O(1)
-    public int ClimbStairs(int n) {
+    // DP + optimization space T: O(n), S: O(1)
+    public int ClimbStairs2(int n) {
         int one = 1, two = 1, cur = 1;
         for (int i = 2; i <= n; i++) {
             cur = one + two;
@@ -17,5 +17,16 @@ public class Solution {
             one = cur;
         }
         return cur;
+    }
+    // recursion + memo
+    public int ClimbStairs(int n) {
+        int[] memo = new int[n+1];
+        Func<int, int> f = null;
+        f = (n) => {
+            if (n <= 1) return 1;
+            if (memo[n] > 0) return memo[n];
+            return memo[n] = f(n-1) + f(n-2);
+        };
+        return f(n);
     }
 }
