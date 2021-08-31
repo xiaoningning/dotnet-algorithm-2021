@@ -8,7 +8,7 @@ public class Solution {
             int w = books[i - 1][0], h = books[i - 1][1];
             // worst case for book[i - 1]: start a new level
             dp[i] = dp[i - 1] + h;
-            // add previous book into the i level to min total height
+            // add book[i - 1] into the previous level to min total height
             for (int j = i - 1; j >= 1; j--) {
                 if ((w += books[j - 1][0]) > shelfWidth) break;
                 h = Math.Max(h, books[j - 1][1]);
