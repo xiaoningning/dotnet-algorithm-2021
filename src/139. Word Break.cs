@@ -31,8 +31,8 @@ public class Solution {
                     q.Enqueue(i);
                     if (i == s.Length) return true;
                 }
-                visited[start] = 1;
             }
+            visited[start] = 1;
         }
         return false;
     }
