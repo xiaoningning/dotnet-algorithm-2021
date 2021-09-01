@@ -1,4 +1,5 @@
 public class Solution {
+    // similar to 139. word break
     // DP
     // T: O(kn^2)
     // S: O(kn)
