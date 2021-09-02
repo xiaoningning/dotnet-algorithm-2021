@@ -16,7 +16,7 @@ public class Solution {
         dp[1,1] = grid[0][0];
         // dp[i,j] in loop k: when the length of path is k
         for (int k = 1; k < mxPath; k++) {
-            // t to track previous round
+            // t to track previous round since dp does not track path k to save space
             // without t, then need to x1/x2 from n-1 to 0
             int[,] t = new int[n+1,n+1];
             for (int i = 0; i <= n; i++) for (int j = 0; j <= n; j++) t[i,j] = -1;
