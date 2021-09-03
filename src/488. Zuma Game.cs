@@ -55,8 +55,6 @@ public class Solution {
             for (int j = 0; j < board.Length; j++) {
                 // failed on the best test case due to the order of insertion
                 // if (hand[i] != board[j]) continue;
-                int len = 0;
-                while (j < board.Length && hand[i] == board[j++] ) len++;
                 string nxBoard = f(board.Insert(j - 1, hand[i].ToString()));
                 // base case
                 if (nxBoard.Length == 0) return 1;
