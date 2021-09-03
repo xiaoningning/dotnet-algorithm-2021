@@ -1,5 +1,6 @@
 public class Solution {
     // DP 
+    // 0 <= n <= 37 => t <= Int32.MaxValue (2^31 -1)
     // T: O(n)
     // S: O(n) -> O(1)
     public int Tribonacci(int n) {
