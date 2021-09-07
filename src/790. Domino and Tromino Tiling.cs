@@ -1,5 +1,6 @@
 public class Solution {
     /**
+    // 2 factor is due to tromino
     dp[n] = dp[n-1] + dp[n-2] + 2*(dp[n-3] + ... + dp[0])
       = dp[n-1] + dp[n-3] + [dp[n-2] + dp[n-3] + 2*(dp[n-4] + ... + dp[0])]
       = dp[n-1] + dp[n-3] + dp[n-1]
