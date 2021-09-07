@@ -3,7 +3,7 @@ public class Solution {
     // T: O(m*n) S: O(1)
     public int CountSquares(int[][] matrix) {
         int ans = 0, m = matrix.Length, n = matrix[0].Length;
-        // matrix track # of square at (i,j)
+        // matrix track # of square with including (i,j)
         for (int i = 0; i < m; i++) 
             for (int j = 0; j < n; j++) {
                 if (i > 0 && j > 0 && matrix[i][j] == 1) 
@@ -16,7 +16,7 @@ public class Solution {
     public int CountSquares1(int[][] matrix) {
         int ans = 0, m = matrix.Length, n = matrix[0].Length;
         // edge len of square bottom right at (i,j)
-        // also, # of square bottom right at (i,j)
+        // also, track # of square with including (i,j)
         int[,] dp = new int[m,n];
         for (int i = 0; i < m; i++) 
             for (int j = 0; j < n; j++) {
