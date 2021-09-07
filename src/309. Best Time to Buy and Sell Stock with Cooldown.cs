@@ -18,9 +18,9 @@ public class Solution {
         foreach (int p in prices) {
             preBuy = buy; 
             // one day cool down for buy
-            // preSell was 2 days back sell
+            // preSell was 2 days back sell here
             buy = Math.Max(preSell - p, preBuy);
-            // preSell was 1 day back sell
+            // preSell was set to 1 day back sell
             preSell = sell;
             sell = Math.Max(preBuy + p, preSell);
         }
