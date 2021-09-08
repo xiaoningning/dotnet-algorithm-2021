@@ -1,5 +1,5 @@
 public class Solution {
-    // Recursion T: O(n)
+    // Recursion T: O(n!)
     public IList<int> GrayCode(int n) {
         if (n == 0) return new List<int>(){0};
         var ans = new List<int>();
