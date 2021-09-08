@@ -6,7 +6,7 @@ public class Solution {
         // [m+1, n+1] needs base match if s & p is both empty
         bool[,] dp = new bool[m+1,n+1];
         dp[0,0] = true; // base is match.
-        for (int i = 1; i <= n; i++) if (p[i-1] == '*') dp[0,i] = dp[0, i-1];
+        for (int j = 1; j <= n; j++) if (p[j-1] == '*') dp[0,j] = dp[0, j-1];
         for (int i = 1; i <= m; i++) {
             for (int j = 1; j <= n; j++) {
                 // '*' any sequence of char, or empty
@@ -17,4 +17,11 @@ public class Solution {
         }
         return dp[m,n];
     }
-}
+    // recursion => TLE
+    public bool IsMatch2(string s, string p) {
+        if (s.Length == 0) return p.Length == 0 || (p[0] == '*' && IsMatch(s, p.Substring(1)));
+        if (p.Length == 0) return s.Length == 0;
+        if (p[0] != '*') return (s[0] == p[0] || p[0] == '?') && IsMatch(s.Substring(1), p.Substring(1));
+        else return IsMatch(s.Substring(1),p) || IsMatch(s, p.Substring(1));
+    }
+} 
