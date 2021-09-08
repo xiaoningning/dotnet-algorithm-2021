@@ -87,4 +87,34 @@ public class Solution {
         };
         return DP(target);
     }
+    // DP
+    // it is slow due to calculate beyond target
+    public int Racecar3(int target) {
+        // 1 <= target <= 10^4
+        int mxT = 10000;
+        // memo[t][d] : min steps to reach t and facing d (0 = right, 1 = left)
+        // need to calculate facing right/left case
+        int[,] memo = new int[mxT + 1,2];
+        // t could be over target for different cases calculation
+        for (int t = 1; t <= mxT; ++t) {
+            // target = 2^n - 1
+            int n = (int)Math.Ceiling(Math.Log(t + 1) / Math.Log(2));
+            // exact case is min case
+            if (t == (1 << n) - 1) {
+                memo[t,0] = n; memo[t,1] = n + 1;
+                continue;
+            }
+            // beyond t, n is the ceiling. => (1<<n)-1 > t
+            int l = (1 << n) - 1 - t;
+            memo[t,0] = n + 1 + Math.Min(memo[l,1], memo[l,0]+1);
+            memo[t,1] = n + 1 + Math.Min(memo[l,0], memo[l,0]+1);
+            // less t
+            for (int i = 1; i < t; i++) {
+                int mi = Math.Min(memo[i,0] + 2, memo[i,1] + 1);
+                memo[t,0] = Math.Min(memo[t,0], memo[t - i,0] + mi);
+                memo[t,1] = Math.Min(memo[t,1], memo[t - i,1] + mi);
+            }
+        }
+        return Math.Min(memo[target,0], memo[target,1]);
+    }
 }
