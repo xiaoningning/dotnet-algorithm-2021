@@ -42,6 +42,8 @@ public class Solution {
         return sum1 + sum2 - 2 * dp[l1,l2];
     }
     // recursion + memo
+    // T: O(l1 * l2)
+    // S: O(l1 * l2)
     public int MinimumDeleteSum(string s1, string s2) {
         int l1 = s1.Length, l2 = s2.Length;
         int[,] memo = new int[l1+1,l2+1];
