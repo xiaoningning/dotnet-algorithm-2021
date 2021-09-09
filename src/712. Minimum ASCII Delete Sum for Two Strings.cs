@@ -32,7 +32,7 @@ public class Solution {
     public int MinimumDeleteSum3(string s1, string s2) {
         int l1 = s1.Length, l2 = s2.Length;
         int[,] dp = new int[l1+1,l2+1];
-        // calculate min # of common string
+        // calculate max # of common string
         for (int i = 1; i <= l1; i++)
             for (int j = 1; j <= l2; j++)
                 dp[i,j] = s1[i-1] == s2[j-1] ? dp[i-1,j-1] + s1[i-1] : Math.Max(dp[i-1,j], dp[i,j-1]);
