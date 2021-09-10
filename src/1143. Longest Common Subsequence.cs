@@ -1,0 +1,15 @@
+public class Solution {
+    // recursion + memo
+    public int LongestCommonSubsequence(string text1, string text2) {
+        int l1 = text1.Length, l2 = text2.Length;
+        int[,] memo = new int[l1,l2];
+        for (int i = 0; i < l1; i++) for (int j = 0; j < l2; j++) memo[i,j] = -1;
+        Func<int,int,int> DFS = null;
+        DFS = (i,j) => {
+            if (i == l1 || j == l2) return 0;
+            if (memo[i,j] >= 0) return memo[i,j];
+            return memo[i,j] = text1[i] == text2[j] ? 1 + DFS(i+1,j+1) : Math.Max(DFS(i+1,j), DFS(i, j+1)); 
+        };
+        return DFS(0,0);
+    }
+}
