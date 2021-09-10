@@ -52,7 +52,7 @@ public class Solution {
         for (int i = 1; i <= l1; i++) {
             for (int j = 0; j <= l2; j++) {
                 // the same j, no swap
-                if (i == 0 || arr1[i-1] > dp[i-1,j]) dp[i,j] = arr1[i-1];
+                if (arr1[i-1] > dp[i-1,j]) dp[i,j] = arr1[i-1];
                 if (j > 0) {
                     // prev j => swap, if no swap at prev i, dp[i-1,j-1] = kInf
                     int nxj = binarySearchRight(dp[i-1,j-1]);
