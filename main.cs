@@ -7,12 +7,13 @@ public class Program
 	public static void Main()
 	{
 		// value type vs reference type:
-		// value type stores in stack, holds value. no need to garage collection. live in methods
-		// reference type refers a memory location, stores in heap, holds a reference to memory location
-		// simple type or structure type or tuple type is basically value type
-		// value type: int, byte, long, uint, ulong, sbyte, bool, char, enum
+		// value type stores in stack, holds value directly. no need to garage collection. live in methods
+		// reference type refers a memory location, stores in managed heap, holds a reference to memory location
+		// simple type or structure type or enum or tuple type is basically user defined value type
+		// value type: int, byte, long, uint, ulong, sbyte, bool, char, decimal, enum
 		// nullable value type: int?, char?, bool?
-		// reference type: class, interface, delegate, record, object, string is a built-in reference type
+		// reference type: class, interface, delegate, array, record are user defined reference type, 
+		// string/object/dynamic is a built-in reference type
 		// delegate: Action<T> => void, Func<T,T> => return
 		
 		Console.WriteLine("|"+"axc".Substring(3)+"|");
