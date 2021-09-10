@@ -6,6 +6,13 @@ public class Program
 {
 	public static void Main()
 	{
+		// value type vs reference type, 
+		// simple type or structure type or tuple type is basically value type
+		// value type: int, byte, long, uint, ulong, sbyte, bool, char, enum
+		// nullable value type: int?, char?, bool?
+		// reference type: class, interface, delegate, record, object, string is a built-in reference type
+		// delegate: Action<T> => void, Func<T,T> => return
+		
 		Console.WriteLine("|"+"axc".Substring(3)+"|");
 		Console.WriteLine("axc".Substring(3) == "");
 		var st1 = new HashSet<List<int>>();
