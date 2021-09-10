@@ -9,6 +9,7 @@ public class Solution {
             // need to start with target, 
             // otherwise dp[1] = true, => all dp[i] = true
             for (int i = target; i >= n; i--)
+                // i could be true already
                 dp[i] = dp[i-n] || dp[i];
         return dp[target];
     }
