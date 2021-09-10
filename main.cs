@@ -6,7 +6,9 @@ public class Program
 {
 	public static void Main()
 	{
-		// value type vs reference type, 
+		// value type vs reference type:
+		// value type stores in stack, holds value. no need to garage collection. live in methods
+		// reference type refers a memory location, stores in heap, holds a reference to memory location
 		// simple type or structure type or tuple type is basically value type
 		// value type: int, byte, long, uint, ulong, sbyte, bool, char, enum
 		// nullable value type: int?, char?, bool?
