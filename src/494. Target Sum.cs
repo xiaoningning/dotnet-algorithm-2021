@@ -46,7 +46,7 @@ public class Solution {
     }
     // DP v1 with offset search int[] faster than v2 with dictionary
     // int array is less space with class dictionary
-    public int FindTargetSumWays(int[] nums, int target) {
+    public int FindTargetSumWays4(int[] nums, int target) {
         if (nums.Sum() < Math.Abs(target)) return 0;
         int kOffset = nums.Sum();
         int kMax = 2 * kOffset;
@@ -63,5 +63,27 @@ public class Solution {
             dp = t;
         }
         return dp[target + kOffset];
+    }
+    // DP similar to LC 322. coin change LC 416. Partition Equal Subset Sum
+    // sum(positive) - sum(negative) = target
+    // sum(positive) + sum(negative) + sum(positive) - sum(negative) = target +  sum(positive) + sum(negative)
+    // 2 * sum(positive) = target + sum(all)
+    // => sum(positive) = (target + sum(all)) / 2
+    public int FindTargetSumWays(int[] nums, int target) {
+        int sum = nums.Sum();
+        if (sum < Math.Abs(target) || (target + sum) % 2 != 0) return 0;
+        Func<int, int> f = null;
+        f = (s) => {
+            int [] dp = new int[s+1];
+            dp[0] = 1;
+            foreach (int n in nums) {
+                // need to start with target, 
+                // otherwise dp[1] = true, => all dp[i] = true
+                for (int t = s; t >= n; t--) 
+                    dp[t] += dp[t-n];
+            }
+            return dp[s];
+        };
+        return f((target + sum) / 2);
     }
 }
