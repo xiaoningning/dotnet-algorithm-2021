@@ -1,4 +1,5 @@
 public class Solution {
+    // Similar to LC. 546 Remove Boxes LC 488 Zuma Game
     // recursion + memo
     // T: O(n^3) S: O(n^2)
     public int StrangePrinter1(string s) {
