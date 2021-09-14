@@ -24,9 +24,15 @@ public class Solution {
         };
         return DFS(0, d);
     }
+    /**
+    dp[i][k] := min difficulties to schedule jobs 1~i in k days.
+    Schedule 1 ~ j in k – 1 days and schedule j + 1 ~ i in 1 day.
+    Init: dp[0][0] = 0
+    Transition: dp[i][k] := min(dp[j][k -1] + max(jobs[j + 1 ~ i]), k – 1 <= j < i
+    */
     // DP
     // T: O(n^2*d) S: O(n)
-    public int MinDifficulty1(int[] jobDifficulty, int d) {
+    public int MinDifficulty(int[] jobDifficulty, int d) {
         int n = jobDifficulty.Length;
         if (d > n) return -1;
         int[,] dp = new int[n+1, d+1];
@@ -34,11 +40,12 @@ public class Solution {
             for (int j = 0; j <= d; j++) dp[i,j] = jobDifficulty.Sum() + 1;
         dp[0,0] = 0;
         for (int i = 1; i <= n; i++) {
-            for (int j = i - 1, mx = 0; j >= 0; j--) {
-                mx = Math.Max(mx, jobDifficulty[j]);
+            for (int k = 1; k <= d; k++) {
                 // each day at least one job
-                for (int k = 1; k <= Math.Min(i,d); k++)
+                for (int j = i - 1, mx = 0; j >= k - 1; j--) {
+                    mx = Math.Max(mx, jobDifficulty[j]);
                     dp[i,k] = Math.Min(dp[i,k], dp[j, k - 1] + mx);
+                }
             }
         }
         return dp[n, d];
@@ -66,7 +73,7 @@ public class Solution {
     }
     // DP v3 DP + Monotonic stack => not friendly to understand
     // T: O(n*d) <= monotonic stack is O(1) S: O(n)
-    public int MinDifficulty(int[] jobDifficulty, int d) {
+    public int MinDifficulty5(int[] jobDifficulty, int d) {
         int n = jobDifficulty.Length;
         if (d > n) return -1;
         // dp:= min of job i at day k
