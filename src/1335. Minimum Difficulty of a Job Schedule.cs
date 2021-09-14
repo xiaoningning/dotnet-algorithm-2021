@@ -1,7 +1,32 @@
 public class Solution {
+    // recursion + memo
+    public int MinDifficulty(int[] jobDifficulty, int d) {
+        int n = jobDifficulty.Length;
+        if (d > n) return -1;
+        int[,] memo = new int[n, d+1];
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j <= d; j++) memo[i,j] = -1;
+        Func<int,int,int> DFS = null;
+        DFS = (start, k) => {
+            int mn = Int32.MaxValue / 2, mx = 0;
+            if (k == 1 && start < n) {
+                int x = start;
+                while (x < n) mx = Math.Max(mx, jobDifficulty[x++]); 
+                return memo[start, k] = mx;
+            }
+            if (memo[start, k] != -1) return memo[start, k];
+            // i < n - (k -1) :=> start, k will not be out of range
+            for (int i = start; i < n - (k -1); i++) {
+                mx = Math.Max(mx, jobDifficulty[i]);
+                mn = Math.Min(mn, DFS(i + 1, k - 1) + mx);
+            }
+            return memo[start,k] = mn;
+        };
+        return DFS(0, d);
+    }
     // DP
     // T: O(n^2*d) S: O(n)
-    public int MinDifficulty(int[] jobDifficulty, int d) {
+    public int MinDifficulty1(int[] jobDifficulty, int d) {
         int n = jobDifficulty.Length;
         if (d > n) return -1;
         int[,] dp = new int[n+1, d+1];
