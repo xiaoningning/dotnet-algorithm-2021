@@ -1,5 +1,6 @@
 public class Solution {
     // DP buttom up v1
+    // T: O(n^3) S: O(n^2)
     public int MinScoreTriangulation1(int[] values) {
         int n = values.Length;
         int[,] dp = new int[n,n];
