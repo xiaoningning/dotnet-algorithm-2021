@@ -1,6 +1,6 @@
 public class Solution {
     // recursion + memo
-    public int MinDifficulty(int[] jobDifficulty, int d) {
+    public int MinDifficulty3(int[] jobDifficulty, int d) {
         int n = jobDifficulty.Length;
         if (d > n) return -1;
         int[,] memo = new int[n, d+1];
@@ -63,5 +63,30 @@ public class Solution {
             }
         }
         return dp[0];
+    }
+    // DP v3 DP + Monotonic stack => not friendly to understand
+    // T: O(n*d) <= monotonic stack is O(1) S: O(n)
+    public int MinDifficulty(int[] jobDifficulty, int d) {
+        int n = jobDifficulty.Length;
+        if (d > n) return -1;
+        // dp:= min of job i at day k
+        int[] dp = new int[n];
+        Array.Fill(dp, Int32.MaxValue / 2);
+        // k init as 0 => easy to calculate i
+        for (int k = 0; k < d; k++) {
+            int[] t = new int[n];
+            var st = new Stack<int>();
+            for (int i = k; i < n; i++) {
+                t[i] = (i > 0 ? dp[i-1] : 0) + jobDifficulty[i];
+                while (st.Any() && jobDifficulty[st.Peek()] <= jobDifficulty[i]) {
+                    int j = st.Pop();
+                    t[i] = Math.Min(t[i], t[j] - jobDifficulty[j] + jobDifficulty[i]);
+                }
+                if (st.Any()) t[i] = Math.Min(t[i], t[st.Peek()]);
+                st.Push(i);
+            }
+            dp = t;
+        }
+        return dp[n-1];
     }
 }
