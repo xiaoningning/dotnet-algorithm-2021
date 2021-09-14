@@ -1,5 +1,5 @@
 public class Solution {
-    // DP buttom up
+    // DP buttom up v1
     public int MinScoreTriangulation1(int[] values) {
         int n = values.Length;
         int[,] dp = new int[n,n];
@@ -14,8 +14,21 @@ public class Solution {
         }
         return dp[0,n-1];
     }
-    // recursion + memo top down
+    // DP buttom up v2
     public int MinScoreTriangulation(int[] values) {
+        int n = values.Length;
+        int[,] dp = new int[n,n];
+        // base case dp[i,i]/dp[i,i+1] = 0
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = i + 1; j < n; j++) {
+                for (int k = i + 1; k < j; k++)
+                    dp[i,j] = Math.Min(dp[i,j] == 0 ? Int32.MaxValue : dp[i,j], values[i] * values[k] * values[j] + dp[i,k] + dp[k,j]);
+            }
+        }
+        return dp[0,n-1];
+    }
+    // recursion + memo top down
+    public int MinScoreTriangulation2(int[] values) {
         int n = values.Length;
         int[,] memo = new int[n,n];
         for (int i = 0; i < n; i++) for (int j = 0; j < n; j++) memo[i,j] = Int32.MaxValue;
