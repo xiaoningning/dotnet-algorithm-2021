@@ -40,8 +40,8 @@ public class Solution {
         // (A) case => A*2
         return 2 * ScoreOfParentheses(s.Substring(1, s.Length - 1));
     }
-    // recursion v2
-    public int ScoreOfParentheses(string s) {
+    // recursion v2 is the same as loop
+    public int ScoreOfParentheses111(string s) {
         int i = 0;
         return GetScore(s, ref i);
     }
@@ -59,5 +59,18 @@ public class Solution {
             }
         }
         return res;
+    }
+    // recursion v3 is the same as loop
+    public int ScoreOfParentheses(string s) {
+        int ans = 0;
+        Action<int,int> GetScore = null;
+        GetScore = (i,cnt) => {
+            if (i == s.Length) return;
+            cnt += s[i] == '(' ? 1 : -1;
+            if (s[i] == ')' && s[i-1] == '(')  ans += 1 << cnt; 
+            GetScore(i+1, cnt);
+        };
+        GetScore(0,0);
+        return ans;
     }
 }
