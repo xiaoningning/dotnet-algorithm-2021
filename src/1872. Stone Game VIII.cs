@@ -16,4 +16,22 @@ public class Solution {
             mx = Math.Max(mx, stones[i] - mx);
         return mx;
     }
+    // recursion + memo => TLE
+    public int StoneGameVIII1(int[] stones) {
+        int n = stones.Length;
+        for (int i = 1; i < n; i++) stones[i] += stones[i-1];
+        int[] memo = new int[n];
+        Array.Fill(memo, Int32.MinValue);
+        Func<int,int> f = null;
+        f = (i) => {
+            if (i == n-1) return memo[i] = stones[i];
+            if (memo[i] != Int32.MinValue) return memo[i];
+            int ans = Int32.MinValue;
+            for (int j = i + 1; j < n; j++) ans = Math.Max(ans, f(j));
+            return memo[i] = stones[i] - ans;
+        };
+        // x > 1
+        f(1);
+        return memo.Max();
+    }
 }
