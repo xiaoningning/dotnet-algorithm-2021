@@ -12,6 +12,7 @@ public class Solution {
         // compute dp in reverse order
         // last one is to take the whole array
         int mx = stones.Last();
+        // x > 1 => i >= 1
         for (int i = n - 2; i >= 1; i--)
             mx = Math.Max(mx, stones[i] - mx);
         return mx;
