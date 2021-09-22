@@ -15,13 +15,24 @@ public class Solution {
         return f(0, n-1) > 0;
     }
     // min - max strategy + linear DP
-    public bool StoneGame(int[] piles) {
+    // T: O(n^2) S: O(n^2)
+    public bool StoneGame2(int[] piles) {
         int n = piles.Length;
+        // dp[i][j] := max(your_stones - op_stones) for piles[i] ~ piles[j]
         int[,] dp = new int[n,n];
         for (int l = 2; l <= n; l++)
             for (int i = 0, j = i + l - 1; j < n; j++, i++)
                 dp[i,j] = Math.Max(piles[i] - dp[i+1, j], piles[j] - dp[i, j-1]);
-
         return dp[0, n-1] > 0;
+    }
+    // S: O(n)
+    public bool StoneGame(int[] piles) {
+        int n = piles.Length;
+        // dp[i] := max(your_stones - op_stones) for piles[i] to piles[i + l - 1]
+        int[] dp = new int[n];
+        for (int l = 2; l <= n; l++)
+            for (int i = 0; i + l - 1 < n; i++)
+                dp[i] = Math.Max(piles[i] - dp[i+1], piles[i + l - 1] - dp[i]);
+        return dp[0] > 0;
     }
 }
