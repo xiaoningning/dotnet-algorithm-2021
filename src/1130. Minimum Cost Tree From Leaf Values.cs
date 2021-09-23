@@ -23,7 +23,7 @@ public class Solution {
     }
     // DP
     // T: O(n^3) S: O(n^2)
-    public int MctFromLeafValues2(int[] arr) {
+    public int MctFromLeafValues5(int[] arr) {
         int n = arr.Length;
         int[,] dp = new int[n,n];
         int[,] max = new int[n,n];
@@ -34,7 +34,7 @@ public class Solution {
         for (int len = 2; len <= n; len++) {
             for (int i = 0, j = i + len - 1; j < n; j++, i++) {
                 dp[i,j] = Int32.MaxValue;
-                for (int k = i; k < j; k++)
+                for (int k = i; k < j; k++) 
                     dp[i,j] = Math.Min(dp[i,j], max[i,k] * max[k+1,j] + dp[i,k] + dp[k+1,j]);
             }
         }
@@ -60,13 +60,14 @@ public class Solution {
     public int MctFromLeafValues(int[] arr) {
         int ans = 0;
         var st = new Stack<int>();
-        // int32.maxvalue for picking left boarder node
+        // int32.maxvalue for picking right boarder node
         st.Push(Int32.MaxValue);
         foreach (int n in arr) {
-            while (st.Any() && st.Peek() <= n) {
+            while (st.Peek() <= n) {
                 // min val of local range
-                int mn = st.Pop(); 
+                int mn = st.Pop();
                 // min cost of node to find min(left of mn, right of mn)
+                // left boarder is int32.Max, st never empty
                 ans += mn * Math.Min(st.Peek(), n);
             }
             st.Push(n);
