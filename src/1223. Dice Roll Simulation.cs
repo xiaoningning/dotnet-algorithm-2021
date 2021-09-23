@@ -27,8 +27,7 @@ public class Solution {
     // DP with compressed state
     // Time complexity: O(n*6)
     // Space complexity: O(n*6)
-    public int DieSimulator(int n, int[] rollMax) {
-        int maxRoll = rollMax.Max();
+    public int DieSimulator2(int n, int[] rollMax) {
         int M = (int)Math.Pow(10,9) + 7;
         // dp[i,j] =: # of sequeneces ends with j after i rolls 
         int[,] dp = new int[n + 1,6];
@@ -43,11 +42,26 @@ public class Solution {
                 // k > 1: k - 1 rolls of all p != j dice plus 1 roll of j 
                 // => k - 1 rolls of all dices extract k-1 rolls of j => invalid = sum[k-1] - dp[k-1,j] 
                 int invalidRoll = k <= 1 ? Math.Max(k,0) : sum[k-1] - dp[k - 1, j];
-                // dp[i,j] = sum[i-1] - (extra invalid roll) + 1 roll of j
+                // dp[i,j] = sum[i-1] - (extra invalid roll)
                 dp[i,j] = ((sum[i - 1] - invalidRoll) % M + M) % M;
                 sum[i] = (sum[i] + dp[i,j]) % M;
             }
         
         return sum[n];
+    }
+    public int DieSimulator(int n, int[] rollMax) {
+        int M = (int)Math.Pow(10,9) + 7;
+        // dp[i,j] =: # of sequeneces ends with j after i rolls 
+        long[,] dp = new long[n + 1,6];
+        // sums[i] := sum(dp[i, j])
+        long[] sum = new long[n + 1];
+        sum[0] = 1; // base case for only 1 roll
+        for (int i = 1; i <= n; i++)
+            for (int j = 0; j < 6; j++) {
+                for (int k = 1; k <= rollMax[j] && k <= i; k++)
+                    dp[i,j] = (dp[i,j] + sum[i-k] - dp[i-k,j] + M) % M;
+                sum[i] = (sum[i] + dp[i,j]) % M;
+            }
+        return (int)sum[n];
     }
 }
