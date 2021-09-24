@@ -6,7 +6,7 @@ public class Solution {
     int[] dfn; // the sequence (timestamp) order of node being searched
     int timer = 0;
     int MAX;
-    public IList<IList<int>> CriticalConnections1(int n, IList<IList<int>> connections) {
+    public IList<IList<int>> CriticalConnections(int n, IList<IList<int>> connections) {
         low = new int[n]; dfn = new int[n]; MAX = n;
         for (int i = 0; i < n; i++) g[i] = new List<int>();
         for (int i = 0; i < n; i++) low[i] = MAX;
@@ -26,17 +26,17 @@ public class Solution {
             if (low[v] == MAX) {
                 DFS(v, u);
                 low[u] = Math.Min(low[u], low[v]);
-                if (low[v] > dfn[u]) ans.Add(new List<int>(){u, v});
             }
             // if v is searched before u and not a parent of u,
             // low[u] should be min (low[u], dfn[v])
-            else low[u] = Math.Min(low[u], dfn[v]);
+            else if (v != parent) low[u] = Math.Min(low[u], dfn[v]);
+            if (low[v] > dfn[u]) ans.Add(new List<int>(){u, v});
         }
     }
     // pre-order (rank/depth) of tree implementation
     // if cycle, the node should have the same order as the root of subtree
     int[] rank;
-    public IList<IList<int>> CriticalConnections(int n, IList<IList<int>> connections) {
+    public IList<IList<int>> CriticalConnections1(int n, IList<IList<int>> connections) {
         MAX = n;
         rank = new int[n];
         for (int i = 0; i < n; i++) g[i] = new List<int>();
