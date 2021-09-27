@@ -25,13 +25,8 @@ public class MyLinkedList {
     /** Append a node of value val to the last element of the linked list. */
     public void AddAtTail(int val) {
         var t = new Node(val, null);
-        if (size == 0) {
-            tail = t;
-            head = t;
-            size++;
-            return;
-        }
-        tail.next = t;
+        if (size == 0)  head = t;
+        else tail.next = t;
         tail = t;
         size++;
     }
