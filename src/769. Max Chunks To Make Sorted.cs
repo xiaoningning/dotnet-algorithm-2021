@@ -8,7 +8,6 @@ public class Solution {
             if (!st.Any() || st.Last() < arr[i]) st.Add(arr[i]);
             else {
                 int curMx = st.Last();
-                st.Remove(curMx);
                 // remove all st.Last() > arr[i] since they must be in one chunk
                 while (st.Any() && st.Last() > arr[i]) st.Remove(st.Last());
                 st.Add(curMx);
