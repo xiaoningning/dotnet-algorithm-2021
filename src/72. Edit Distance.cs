@@ -14,7 +14,7 @@ public class Solution {
             int insertCnt = f(l1, l2 + 1);
             int deleteCnt = f(l1 + 1, l2);
             int replaceCnt = f(l1 + 1, l2 + 1);
-            return memo[l1,l2] = (new int[]{insertCnt, deleteCnt, replaceCnt}.Min()) + 1;
+            return memo[l1,l2] = new int[]{insertCnt, deleteCnt, replaceCnt}.Min() + 1;
         };
         return f(0, 0);
     }
