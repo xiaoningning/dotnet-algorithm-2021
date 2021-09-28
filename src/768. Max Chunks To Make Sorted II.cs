@@ -1,7 +1,7 @@
 public class Solution {
     // with forward and backward arrays
     // T: O(n)
-    public int MaxChunksToSorted(int[] arr) {
+    public int MaxChunksToSorted1(int[] arr) {
         int n = arr.Length, ans = 1;
         int[] forward = (int[]) arr.Clone();
         int[] backward = (int[]) arr.Clone();
@@ -14,18 +14,19 @@ public class Solution {
     // monotonic stack
     // T: O(n * logn)
     // it can have duplicated ones
-    public int MaxChunksToSorted1(int[] arr) {
+    public int MaxChunksToSorted(int[] arr) {
         int n = arr.Length;
         // keep max of each chunk
-        var st = new HashSet<int>();
+        var st = new Stack<int>();
         for (int i = 0; i < n; i++) {
-            if (!st.Any() || st.Last() < arr[i]) st.Add(arr[i]);
+            // different from Lc 769 Max Chunks To Make Sorted 
+            // it can be the same
+            if (!st.Any() || st.Peek() <= arr[i]) st.Push(arr[i]);
             else {
-                int curMx = st.Last();
-                st.Remove(curMx);
+                int curMx = st.Pop();
                 // remove all st.Last() > arr[i] since they must be in one chunk
-                while (st.Any() && st.Last() > arr[i]) st.Remove(st.Last());
-                st.Add(curMx);
+                while (st.Any() && st.Peek() > arr[i]) st.Pop();
+                st.Push(curMx);
             }
         }
         return st.Count;
