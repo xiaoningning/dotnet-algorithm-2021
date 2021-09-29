@@ -4,21 +4,25 @@ public class Solution {
     // but put their sum back as a new stone, 
     // so you can assume all the original stones are still there, 
     // but opponent has to start from the k+1 th stone.
+    // dp[i] := max # of difference by two players
     // dp[i] = sum[0,i] - max(dp[i+1], dp[i+2], dp[n-1]);
     // T: O(n) S: O(1)
-    public int StoneGameVIII(int[] stones) {
+    // bottom up
+    public int StoneGameVIII1(int[] stones) {
         int n = stones.Length;
         for (int i = 1; i < n; i++) stones[i] += stones[i-1];
         // compute dp in reverse order
         // last one is to take the whole array
-        int mx = stones.Last();
+        // dp[N - 2] = sum[N - 1]
+        int mx = stones.Last(); 
         // x > 1 => i >= 1
         for (int i = n - 2; i >= 1; i--)
+            // dp[i - 1] = max(dp[i], sum[i] - dp[i]) 
             mx = Math.Max(mx, stones[i] - mx);
         return mx;
     }
-    // recursion + memo => TLE
-    public int StoneGameVIII1(int[] stones) {
+    // recursion + memo => top down
+    public int StoneGameVIII(int[] stones) {
         int n = stones.Length;
         for (int i = 1; i < n; i++) stones[i] += stones[i-1];
         int[] memo = new int[n];
@@ -27,12 +31,11 @@ public class Solution {
         f = (i) => {
             if (i == n-1) return memo[i] = stones[i];
             if (memo[i] != Int32.MinValue) return memo[i];
-            int ans = Int32.MinValue;
-            for (int j = i + 1; j < n; j++) ans = Math.Max(ans, f(j));
-            return memo[i] = stones[i] - ans;
+            // Similar to Knapsack 0/1
+            // 1st player takes i or i + 1, i + 2...
+            return memo[i] = Math.Max(f(i+1), stones[i] - f(i+1));
         };
         // x > 1
-        f(1);
-        return memo.Max();
+        return f(1);
     }
 }
