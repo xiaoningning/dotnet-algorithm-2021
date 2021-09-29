@@ -29,7 +29,7 @@ public class Solution {
             if (memo[i,m] != 0) return memo[i,m];
             int ans = 0;
             for (int x = 1; x <= 2 * m; x++) {
-                // 1st player takes all except 1nd player f(i+x, max(x,m))
+                // 1st player takes all except 2nd player f(i+x, max(x,m))
                 ans = Math.Max(ans, sum[i] - f(i+x, Math.Max(x,m)));
             }
             return memo[i,m] = ans;
