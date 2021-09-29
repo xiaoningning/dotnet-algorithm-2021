@@ -11,7 +11,7 @@ public class Solution {
         int[,] dp = new int[n+1,n+1];
         for (int i = 0; i < n; i++) dp[i,n] = sum[i];
         for (int i = n - 1; i >= 0; i--)
-            for (int m = n; m >= 1; m--)
+            for (int m = 1; m <= n; m++)
                 for (int x = 1; x <= 2 * m && i + x <= n; x++)
                     dp[i, m] = Math.Max(dp[i,m], sum[i] - dp[i+x,Math.Max(m, x)]); 
         return dp[0,1];
