@@ -143,8 +143,8 @@ public class Program
 		Console.WriteLine("linq ToHashSet: " + string.Join(',', lSet));
 		
 		Console.WriteLine("is type check: " + ("abc" is not null).ToString());
-		Console.WriteLine("bool to int: " + Convert.ToInt32(false));
-		Console.WriteLine("bool to int: " + Convert.ToInt32(true));
+		Console.WriteLine("bool false to int: " + Convert.ToInt32(false));
+		Console.WriteLine("bool true to int: " + Convert.ToInt32(true));
 		
 		double[] values = {7.03, 7.64, 0.12, -0.12, -7.1, -7.6};
 		foreach (double v in values) Console.WriteLine($"{v},  ceiling: {Math.Ceiling(v)}, floor: {Math.Floor(v)}");
