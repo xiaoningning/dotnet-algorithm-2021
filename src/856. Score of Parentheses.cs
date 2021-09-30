@@ -19,7 +19,7 @@ public class Solution {
         for (int i = 0; i < s.Length; i++) {
             cnt += s[i] == '(' ? 1 : -1;
             // () => 2^0, (()) => 2^1, ((())) => 2^2
-            // 1 << x = x * 2 if x >= 1; 1 << x = 0 if x == 0
+            // 1 << x = x * 2 if x >= 1; 1 << x = 1 if x == 0
             if (s[i] == ')' && s[i-1] == '(') res += 1 << cnt;
         }
         // O(n)
