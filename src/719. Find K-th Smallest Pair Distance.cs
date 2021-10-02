@@ -23,7 +23,6 @@ public class Solution {
         while (l < r) {
             int m = l + (r - l) / 2;
             int cnt = 0;
-            int t = 0;
             for (int i = 0; i < n; i++) {
                 int j = i+1;
                 while (j < n && nums[j] - nums[i] <= m) {
