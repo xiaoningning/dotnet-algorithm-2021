@@ -17,7 +17,8 @@ public class Solution {
                 if (t.Length > 1 && t[0] == '0') return;
                 long tVal = Int64.Parse(t);
                 // if num string is very long, it could be overflow int32
-                if (tVal > Int32.MaxValue) break;
+                // overflow int32 for val or PREV !!!
+                if (tVal > Int32.MaxValue || prev * tVal > Int32.MaxValue) break;
                 int curVal = (int)tVal;
                 if (cur.Length != 0) {
                     DFS(start + i, curVal, val + curVal, cur + "+" + t);
