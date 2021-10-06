@@ -31,7 +31,7 @@ public class Solution {
         }
         return st.Count;
     }
-    // T: O(n * logn) // sorting O(logn)
+    // T: O(n * logn) // sorting O(nlogn)
     public int MaxChunksToSorted2(int[] arr) {
         int n = arr.Length, ans = 0, sum1 = 0, sum2 = 0;
         int[] expected = (int[]) arr.Clone();
