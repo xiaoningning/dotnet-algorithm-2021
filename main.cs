@@ -16,6 +16,48 @@ public class Program
 		// string/object/dynamic is a built-in reference type
 		// delegate: Action<T> => void, Func<T,T> => return
 		
+		// c# datetime
+		var tlst = new List<DateTime>();
+		var x1 = DateTime.Parse("2020-11-02T14:00:00Z");
+		var x2 = DateTime.Parse("2020-11-02T14:10:00Z");
+		var timeSeconds = (x1 - DateTimeOffset.UnixEpoch).TotalSeconds;
+		Console.WriteLine($"time span to unix epoch: {timeSeconds}");
+
+		tlst.Add(DateTime.Parse("2020-11-02T13:00:00Z"));
+		tlst.Add(DateTime.Parse("2020-11-02T14:10:00Z"));
+		tlst.Add(DateTime.Parse("2020-11-02T14:02:00Z"));
+		var ttt = tlst.OrderByDescending(x => x);
+		Console.WriteLine(string.Join(',', ttt));
+		tlst.Sort((x, y) => -x.CompareTo(y));
+		Console.WriteLine(string.Join(',', tlst));
+		Console.WriteLine($"time span: {x1 - x2}");
+		Console.WriteLine($"time span in seconds: {(x1 - x2).TotalSeconds}");
+
+		var epochTime = DateTimeOffset.UnixEpoch.AddSeconds(1623834502);
+		Console.WriteLine($"unix epoch time to date time: {epochTime}");
+
+		var switchCases = new string[] { "case1", "case2", "case3", "case4", "case5" };
+		Console.WriteLine("c# switch case:");
+		foreach (string sc in switchCases)
+		{
+		    switch (sc)
+		    {
+			case "case1":
+			    Console.WriteLine(sc);
+			    break;
+			case "case2":
+			    Console.WriteLine(sc);
+			    break;
+			case "case3":
+			case "case4":
+			    Console.WriteLine(sc);
+			    break;
+			default:
+			    Console.WriteLine($"default {sc}");
+			    break;
+		    }
+		}
+		
 		Console.WriteLine("|"+"axc".Substring(3)+"|");
 		Console.WriteLine("axc".Substring(3) == "");
 		var st1 = new HashSet<List<int>>();
