@@ -58,6 +58,22 @@ public class Program
 		    }
 		}
 		
+		// Array is reference type.  Clone or assign does overwrite the refered one.
+		// only copy is to create a new objec
+		var g1 = new int[1][];
+		g1[0] = new int[]{2};
+		var gg1 = new int[1][];
+		gg1[0] = new int[1];
+		for(int i = 0; i < g1.Length; i++) g1[i].CopyTo(gg1[i], 0);
+		Console.WriteLine(gg1[0][0]);
+		g1[0][0] = 4;
+		Console.WriteLine($"a new array object, no change: {gg1[0][0]}");
+		// gg1 = g1; // clone =: reference type
+		gg1 = (int[][])g1.Clone();
+		Console.WriteLine(gg1[0][0]);
+		g1[0][0] = 8;
+		Console.WriteLine($"a cloned array object, it changes!!!: {gg1[0][0]}");
+		
 		Console.WriteLine("|"+"axc".Substring(3)+"|");
 		Console.WriteLine("axc".Substring(3) == "");
 		var st1 = new HashSet<List<int>>();
