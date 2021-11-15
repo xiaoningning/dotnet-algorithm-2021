@@ -267,6 +267,10 @@ public class Program
 		
 		var strFm = string.Format("{0}-{1}", "abc", 123);
 		Console.WriteLine("c# 4.7.2 only support {{}} : {0}", strFm);
+		
+		var ahs1 = new int[]{1,2};
+		var hs = new HashSet<int[]>(){new int[]{1,2}};
+		Console.WriteLine("hashset<int[]> should be false  since object hash and array is reference type {0}", hs.Contains(ahs1));
 	}
 	
 	static Tuple<int, string> GetIt(string s) {
