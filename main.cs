@@ -69,10 +69,11 @@ public class Program
 		g1[0][0] = 4;
 		Console.WriteLine($"a new array object, no change: {gg1[0][0]}");
 		// gg1 = g1; // clone =: reference type
-		gg1 = (int[][])g1.Clone();
+		gg1 = (int[][])g1.Clone(); // array clone is a shadow copy !!!
 		Console.WriteLine(gg1[0][0]);
 		g1[0][0] = 8;
 		Console.WriteLine($"a cloned array object, it changes!!!: {gg1[0][0]}");
+		// array deep copy must create a new int array and copy int value, since int is value type, but array is reference type
 		
 		Console.WriteLine("|"+"axc".Substring(3)+"|");
 		Console.WriteLine("axc".Substring(3) == "");
