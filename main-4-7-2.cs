@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class Program472
+public class Program
 {
 	public static void Main()
 	{
@@ -20,6 +20,7 @@ public class Program472
 		var tlst = new List<DateTime>();
 		var x1 = DateTime.Parse("2020-11-02T14:00:00Z");
 		var x2 = DateTime.Parse("2020-11-02T14:10:00Z");
+		// DateTimeOffset.UnixEpoch not in c# 4.7.2
 		// var timeSeconds = (x1 - DateTimeOffset.UnixEpoch).TotalSeconds;
 		// Console.WriteLine($"time span to unix epoch: {timeSeconds}");
 
@@ -27,6 +28,7 @@ public class Program472
 		tlst.Add(DateTime.Parse("2020-11-02T14:10:00Z"));
 		tlst.Add(DateTime.Parse("2020-11-02T14:02:00Z"));
 		var ttt = tlst.OrderByDescending(x => x);
+		// string.Join() must be ",", but not ','!!!
 		Console.WriteLine(string.Join(",", ttt));
 		tlst.Sort((x, y) => -x.CompareTo(y));
 		Console.WriteLine(string.Join(",", tlst));
@@ -61,12 +63,12 @@ public class Program472
 		g1[0] = new int[]{2};
 		var gg1 = new int[1][];
 		gg1[0] = new int[1];
-		for(int i = 0; i < g1.Length; i++) g1[i].CopyTo(gg1[i], 0);
+		for(int i = 0; i < g1.Length; i++) g1[i].CopyTo(gg1[i], 0); // deep copy
 		Console.WriteLine(gg1[0][0]);
 		g1[0][0] = 4;
 		Console.WriteLine("a new array object, no change: {0}", gg1[0][0]);
 		// gg1 = g1; // clone =: reference type
-		gg1 = (int[][])g1.Clone();
+		gg1 = (int[][])g1.Clone(); // a shadow copy
 		Console.WriteLine(gg1[0][0]);
 		g1[0][0] = 8;
 		Console.WriteLine("a cloned array object, it changes!!!: {0}", gg1[0][0]);
@@ -81,9 +83,6 @@ public class Program472
 		st2.Add(new int[]{1,2});
 		st2.Add(new int[]{1,2});
 		Console.WriteLine("hash set array cnt: " + st2.Count);
-		// var st3 = new HashSet<(int,int)>();
-		// st3.Add((1,2));
-		Console.WriteLine("hash set tuple cnt: " + st2.Count);
 		Console.WriteLine("axc".CompareTo("abe"));
 		Console.WriteLine("binary shift " + Convert.ToString(1 << 0 | 1 << 1 | 1 << 2, 2));
 		Console.WriteLine("n = 6 state: " + Convert.ToString((1 << 6) - 1, 2));
@@ -96,9 +95,7 @@ public class Program472
 		Console.WriteLine(Convert.ToString(3, 2));
 		Console.WriteLine(Convert.ToString(4 ^ (4 & 3), 2));
 		Console.WriteLine((int)Math.Sqrt(6));
-		// var hs = new HashSet<(int, string)>();
-		// hs.Add((1,"22"));
-		// Console.WriteLine("hashset tuple: " + hs.Contains((1,"22")));
+		
 		var lst20 = new List<int>();
 		lst20.InsertRange(0, new List<int>(){2,2});
 		Console.WriteLine(string.Join("|", lst20));
@@ -130,15 +127,9 @@ public class Program472
 		Array.Resize(ref a4, 2);
 		Console.WriteLine("array resize smaller: " + string.Join(",", a4));
 		
-		/**
-		var (l, s) = GetIt("aefbgc");
-		Console.WriteLine("string length:"+l);
-		var res = GetIt("aefbgc");
-		Console.WriteLine(res.Item1);
-		*/
 		var s = "xcba";
 		var s1 = new string(s.OrderBy(a => a).ToArray());
-		Console.WriteLine("orderby:" + s1);
+		Console.WriteLine("string orderby:" + s1);
 		s1 = s1.Remove(1,1);
 		Console.WriteLine("remove string at 1:"+s1);
 		var s2 = new string(s.OrderByDescending(a => a).ToArray());
@@ -176,18 +167,19 @@ public class Program472
 		if (limitsLookup.TryGetValue(4, out (int Min, int Max) limits))
 			Console.WriteLine("Found limits: min is {0}, max is {1}", limits.Min, limits.Max);
 		*/
+		
 		/**
 		var q = new Queue<(int, string)>();
 		q.Enqueue((1,"11"));
 		Console.WriteLine("tuple queue: " + q.Dequeue().Item2);
 		*/
 		var lst = new List<string>(){"a","b", "ba", "bc", "v"};
+		
 		// Get index of list
-		/**
-		foreach (var (idx, v) in lst.Select((item, index) => new Tuple<int,string>(index, item + "@idx:" + index))) {
-			Console.WriteLine("linq select idx: " + idx + ": " + v);
+		foreach (var res in lst.Select((item, index) => Tuple.Create(index, item + "@idx:" + index))) {
+			Console.WriteLine("linq select idx: " + res.Item1 + ": " + res.Item2);
 		}
-		*/
+		
 		var lstSelect = lst.Select(x => x.StartsWith("b"));
 		Console.WriteLine("linq select: " + string.Join(",", lstSelect));
 		var lstWhere = lst.Where(x => x.StartsWith("b"));
@@ -230,6 +222,13 @@ public class Program472
 		Console.WriteLine("system.tuple in c# 4.7.2 : Dictionary<Tuple<string,int>, List<Tuple<int, string>>> {0}", td1.ContainsKey(Tuple.Create("b", 2)));
 		Console.WriteLine("system.tuple in c# 4.7.2 : Dictionary<Tuple<string,int>, List<Tuple<int, string>>> {0}", td1[Tuple.Create("a", 1)].First().Item2);
 
+		var tlst1 = new List<Tuple<int, string>>();
+		tlst1.Add(Tuple.Create(1, "a"));
+		tlst1.Add(Tuple.Create(2, "c"));
+		tlst1.Add(Tuple.Create(2, "a"));
+		tlst1.Sort((x, y) => x.Item1 == y.Item1 ? x.Item2.CompareTo(y.Item2) : x.Item1 - y.Item1);
+		Console.WriteLine("list tuple sort at {0} val: {1}", tlst1[1].Item1, tlst1[1].Item2);
+		Console.WriteLine("list tuple sort at {0} val: {1}", tlst1[2].Item1, tlst1[2].Item2);
 		
 		// Func vs Action
 		// Func return value, where Action does not
@@ -254,11 +253,11 @@ public class Program472
 		af2("abc");
 		Console.WriteLine("{0}", oStr);
 		
-		Func<Tuple<string, int>, string> f3 = null;
+		Func<Tuple<string, int>, Tuple<int,string>> f3 = null;
 		f3 = (x) => { 
-			return x.Item1 + "|f3|";
+			return Tuple.Create<int,string>(x.Item1.Length, x.Item1 + "|f3|");
 		};
-		Console.WriteLine("c# 4.7.2 system.tuple in Func f3 {0}", f3(Tuple.Create("abc", 1)));
+		Console.WriteLine("c# 4.7.2 system.tuple in Func f3 return tuple as well: {0} {1}", f3(Tuple.Create("abc", 1)).Item1, f3(Tuple.Create("abc", 1)).Item2);
 		
 		var tfo1 = GetIt("tfo1");
 		Console.WriteLine("c# 4.7.2 systme.tuple: {0} {1}", tfo1.Item1, tfo1.Item2);
