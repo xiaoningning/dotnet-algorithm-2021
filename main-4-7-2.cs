@@ -140,21 +140,22 @@ public class Program
 		Console.WriteLine("sort:" + new string(s3.ToArray()));
 		
 		// array (tuple) as key of dictionary
-		Console.WriteLine("tuple as Dictionary key and value");
-		// var d = new Dictionary<(int,string), string>(){{(1,"11"), "abcd"}, {(2,"22"),"xyz"}};
-		// Console.WriteLine(d[(1,"11")]);
-		// Console.WriteLine(d.ContainsKey((2,"3")));
+		Console.WriteLine("c# 4.7.2 tuple as Dictionary key and value");
+		var d = new Dictionary<Tuple<int,string>, string>(){{Tuple.Create(1,"11"), "abcd"}, {Tuple.Create(2,"22"),"xyz"}};
+		Console.WriteLine(d[Tuple.Create(1,"11")]);
+		Console.WriteLine(d.ContainsKey(Tuple.Create(2,"3")));
 		// Console.WriteLine(d.ContainsKey((1,"11")));
-		// foreach (var kv in d){
-		// 	Console.WriteLine("tuple as key of dict: "+ kv.Key.Item2);
-		// }
+		foreach (var kv in d){
+			Console.WriteLine("tuple as key of dict: "+ kv.Key.Item2);
+		}
 		/**
-		var d2 = new Dictionary<(int, string), (string, int)>()
+		// c# 4.7.2 does not support init dictionary as [key] = val
+		var d2 = new Dictionary<Tuple<int,string>, Tuple<string, int>>()
 		{
-			[(1,"11")] = ("11", 1),
-			[(2, "22")] = ("22", 2)
+			[Tuple.Create(1,"11")] = Tuple.Create("11", 1),
+			[Tuple.Create(2, "22")] = Tuple.Create("22", 2)
 		};
-		Console.WriteLine(d2.ContainsValue(("22", 2)));
+		Console.WriteLine(d2.ContainsValue(Tuple.Create("22", 2)));
 		foreach(var kv in d2) Console.WriteLine("tuple as dictionary key/value: " + kv.Key.Item1 + ":-" + kv.Value.Item1);
 		
 		var limitsLookup = new Dictionary<int, (int Min, int Max)>()
