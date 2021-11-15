@@ -262,6 +262,9 @@ public class Program
 		
 		var tfo1 = GetIt("tfo1");
 		Console.WriteLine("c# 4.7.2 systme.tuple: {0} {1}", tfo1.Item1, tfo1.Item2);
+		
+		var strFm = string.Format("{0}-{1}", "abc", 123);
+		Console.WriteLine("c# 4.7.2 only support {{}} : {0}", strFm);
 	}
 	
 	static Tuple<int, string> GetIt(string s) {
