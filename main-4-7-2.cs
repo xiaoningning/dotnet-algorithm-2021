@@ -27,11 +27,13 @@ public class Program
 		tlst.Add(DateTime.Parse("2020-11-02T13:00:00Z"));
 		tlst.Add(DateTime.Parse("2020-11-02T14:10:00Z"));
 		tlst.Add(DateTime.Parse("2020-11-02T14:02:00Z"));
+		tlst.Add(DateTime.Now);
+		Console.WriteLine("time list: " + string.Join(",", tlst));
 		var ttt = tlst.OrderByDescending(x => x);
 		// string.Join() must be ",", but not ','!!!
-		Console.WriteLine(string.Join(",", ttt));
+		Console.WriteLine("time list order: " + string.Join(",", ttt));
 		tlst.Sort((x, y) => -x.CompareTo(y));
-		Console.WriteLine(string.Join(",", tlst));
+		Console.WriteLine("time compare" + string.Join(",", tlst));
 		Console.WriteLine("time span: {0}", x1 - x2);
 		Console.WriteLine("time span in seconds: {0}", (x1 - x2).TotalSeconds);
 
